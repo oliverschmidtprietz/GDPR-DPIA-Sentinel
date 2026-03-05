@@ -1,0 +1,15 @@
+# macOS
+.DS_Store
+
+# Archives
+*.zip
+*.tar.gz
+
+# Editor files
+*.swp
+*~
+.vscode/
+.idea/
+
+# Claude Code local config
+CLAUDE.md
