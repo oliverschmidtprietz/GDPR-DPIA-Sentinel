@@ -1,11 +1,11 @@
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
-[![Claude Code Skill](https://img.shields.io/badge/Claude_Code-Skill-orange)](https://docs.anthropic.com/en/docs/claude-code)
+[![Agent Skill](https://img.shields.io/badge/Agent_Skill-Open_Standard-orange)](https://agentskills.io)
 
 # DPIA Sentinel v1.0
 
-**GDPR Data Protection Impact Assessment Sentinel** — a structured DPIA guidance skill for [Claude Code](https://docs.anthropic.com/en/docs/claude-code) that provides expert-level Art. 35 assessment support.
+**GDPR Data Protection Impact Assessment Sentinel** — an [Agent Skill](https://agentskills.io) that provides expert-level Art. 35 assessment support.
 
-> **Note:** This is a Claude Code skill, not a standalone application. It requires Claude Code (Anthropic's agentic coding tool) to run. The skill extends Claude's capabilities with specialized GDPR DPIA knowledge, methodology, and document generation.
+> **Note:** This is an [Agent Skill](https://agentskills.io) — not a standalone application. It runs inside any compatible AI agent, including Claude Code, Claude.ai, Cursor, VS Code, GitHub Copilot, Gemini CLI, OpenAI Codex, JetBrains Junie, and [many more](https://agentskills.io). The skill extends your agent's capabilities with specialized GDPR DPIA knowledge, methodology, and document generation.
 
 ## Features
 
@@ -21,17 +21,22 @@
 
 ## Installation
 
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/oliverschmidtprietz/GDPR-DPIA-Sentinel.git
-   ```
+This is an [Agent Skill](https://agentskills.io) compatible with any tool that supports the open Agent Skills standard.
 
-2. Copy the skill folder into your Claude Code skills directory:
-   ```bash
-   cp -r GDPR-DPIA-Sentinel/ ~/.claude/skills/user/dpia-sentinel-oliver-schmidt-prietz/
-   ```
+### Claude Code
 
-3. The skill will auto-activate when you mention DPIA, DSFA, Art. 35, or describe high-risk processing scenarios in Claude Code.
+```bash
+git clone https://github.com/oliverschmidtprietz/GDPR-DPIA-Sentinel.git
+cp -r GDPR-DPIA-Sentinel/ ~/.claude/skills/user/dpia-sentinel-oliver-schmidt-prietz/
+```
+
+The skill will auto-activate when you mention DPIA, DSFA, Art. 35, or describe high-risk processing scenarios.
+
+### Other Compatible Agents
+
+For Cursor, VS Code, Gemini CLI, OpenAI Codex, JetBrains Junie, and other tools supporting the Agent Skills standard, follow the skill installation instructions for your specific tool. The skill folder structure is portable — just point your agent to the cloned directory.
+
+See [agentskills.io](https://agentskills.io) for a full list of compatible tools and integration guides.
 
 ## File Structure
 
