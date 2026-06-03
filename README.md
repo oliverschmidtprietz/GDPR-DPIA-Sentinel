@@ -1,5 +1,7 @@
 # DPIA Sentinel — Deployment Guide
 
+> 📄 **[View the interactive skill page →](https://oliverschmidtprietz.github.io/GDPR-DPIA-Sentinel/)**
+
 ## Overview
 
 GDPR Data Protection Impact Assessment Sentinel — a structured DPIA guidance skill for Claude that provides:
