@@ -1,18 +1,18 @@
 ---
-name: dpia-sentinel-oliver-schmidt-prietz
+name: dpia-sentinel
 description: |
-  GDPR Data Protection Impact Assessment (DPIA) guidance under Article 35 GDPR, EDPB Guidelines WP 248 rev.01, EDPB Opinion 28/2024 (AI), and national SA blacklists/whitelists. Triggers: "DPIA", "DSFA", "Datenschutz-Folgenabschätzung", "impact assessment", "Art. 35", "do I need a DPIA", descriptions of new high-risk processing (profiling, AI, biometrics, large-scale monitoring, special category data), Art. 36 prior consultation questions, national blacklist/whitelist queries.
+  GDPR Data Protection Impact Assessment (DPIA) guidance under Article 35 GDPR, EDPB Guidelines WP 248 rev.01, EDPB DPIA Template v1.0 (March 2026), EDPB Opinion 28/2024 (AI), and national SA blacklists/whitelists. Triggers: "DPIA", "DSFA", "Datenschutz-Folgenabschätzung", "impact assessment", "Art. 35", "do I need a DPIA", "EDPB template", descriptions of new high-risk processing (profiling, AI, biometrics, large-scale monitoring, special category data), Art. 36 prior consultation questions, national blacklist/whitelist queries.
 metadata:
   author: Oliver Schmidt-Prietz
   license: AGPL-3.0
-  version: 2026.02.10
+  version: 1.9
 ---
 
 # DPIA Sentinel
 
-## Disclaimer (show at session start)
+## Disclaimer (show at session start, do not block)
 
-> **Important:** This provides structured GDPR Article 35 guidance based on EDPB Guidelines and national SA requirements. It is not legal advice. Involve your DPO (Art. 35(2)) and qualified counsel for final decisions.
+> **Important:** This skill provides structured GDPR Article 35 guidance based on EDPB Guidelines and national SA requirements. It is not legal advice. Involve your DPO (Art. 35(2)) and qualified counsel for final decisions.
 
 ## Routing
 
@@ -22,7 +22,8 @@ Determine what the user needs and load references accordingly:
 |-----------|----------------------|--------|
 | "Do I need a DPIA?" / threshold question | `references/edpb-criteria.md` + relevant jurisdiction file(s) | Run threshold assessment |
 | Full DPIA | `edpb-criteria.md` + jurisdiction(s) + `references/risk-catalog.md` + `scoring.md` | Walk through assessment phases |
-| Document generation (.docx) | `references/templates.md` + docx generation skill (`/mnt/skills/public/docx/SKILL.md` in Claude.ai Projects, or `docx-processing-anthropic` skill in Claude Code; if unavailable, generate well-formatted Markdown as fallback) | Generate Word document |
+| Document generation (.docx) — custom format | `references/dpia-custom-population.md` + `references/templates.md` + docx skill | Populate custom template .docx (unpack → fill tables → repack) |
+| Document generation (.docx) — EDPB 2026 format | `references/edpb-2026-population.md` + `references/edpb-2026-template.md` + docx skill | Populate official EDPB template .docx (unpack → fill tables → repack) |
 | Specific legal question | Load relevant reference only | Answer directly |
 
 **Jurisdiction selection:** Ask two questions: (1) Where is the controller's main establishment? (2) Where are the data subjects located? Load **all** jurisdiction files that are relevant — this may be multiple files for multi-jurisdictional processing. See `references/edpb-criteria.md` → "Multi-Jurisdictional DPIA Analysis" for the full decision framework.
@@ -41,9 +42,15 @@ For jurisdictions not covered by a dedicated file, rely on the EDPB nine-criteri
 
 ## Assessment Flow
 
-**Threshold → Description → Necessity/Proportionality → Risks → Mitigations → Residual Risk → Art. 36 Check → Documentation**
+**Threshold → Description → Asset Inventory → Necessity → Proportionality → Inherent Risks (Track A+B) → Mitigations → Residual Risk → Art. 36 Check → Documentation**
 
 This is the logical sequence, not a rigid script. Adapt to the user: if they provide rich context upfront, skip intake questions. If they're experienced, move faster. If they're new to DPIAs, explain more.
+
+**Asset Inventory** (per EDPB Template 2026, Section 1.3): Collect risk-relevant assets — hardware, software, APIs/models, personnel, sites/premises, organisational assets. Group by logical module or technical layer. Include only assets whose compromise would plausibly impact data subjects' rights and freedoms.
+
+**Necessity and Proportionality** are separate upstream gates (EDPB Template 2026, Section 3). Necessity: is the processing effective and least intrusive? Proportionality: do the benefits justify the impacts? These must be assessed *before* the risk mitigation phase.
+
+**Two risk tracks** (per EDPB Template 2026): Track A identifies inherent-by-design risks (from processing working as intended). Track B identifies operational risks (from accidental/unlawful/abnormal events). Both are scored using the same L×S + modulating factors methodology in `references/scoring.md`.
 
 The assessment is **iterative**: if mitigations in later stages change the processing design, revisit earlier analysis and flag this to the user.
 
@@ -75,12 +82,18 @@ These are areas where Claude's training knowledge may be imprecise. Always apply
 
 12. **AI Act FRIA is distinct from DPIA.** For high-risk AI systems under the AI Act, a Fundamental Rights Impact Assessment (FRIA) may also be required. DPIA (data protection risks) and FRIA (broader fundamental rights) are complementary — one does not replace the other.
 
+13. **EDPB DPIA Template (v1.0, March 2026)** provides a harmonised EU-wide DPIA structure but does not mandate a specific risk scoring methodology. Controllers may use any established methodology (CNIL PIA, DSK SDM, etc.); the template records the minimum required information in a standardised format. National SA requirements and methodologies remain valid complements. Note: the template was adopted for public consultation — check for final version updates.
+
 ## Output Formats
 
 **Threshold result:** Present a clear verdict (DPIA Required / Recommended / Not Required) with the reasoning showing Art. 35(3) check, criteria analysis, and national list check.
 
-**Risk register:** Table with Risk ID, Description, Rights Category, Likelihood (1-5), Severity (1-5), Score, Level. Use the scoring methodology in `references/scoring.md`.
+**Risk register:** Table with Risk ID, Track (A/B), Description, Rights Category, Likelihood (1-5), Severity (1-5), Score, Modulating Factors, Adjusted Level. Use the scoring methodology in `references/scoring.md`.
 
-**Residual risk overview:** Summary showing total risks by level before and after mitigation, plus overall position (Acceptable / Acceptable with Conditions / Art. 36 Consultation Required).
+**Residual risk overview:** Summary showing total risks by level before and after additional mitigation, plus overall verdict (APPROVED / CONDITIONALLY APPROVED / CONSULT SA / REJECTED).
 
-**Documents:** Generate .docx files following `references/templates.md`. Always read the docx skill first.
+**Documents:** Both formats use template population (unpack → fill → repack) for consistent styling. Read the docx skill first, then the relevant population guide:
+- **EDPB 2026 format:** Populate `references/edpb-2026-template-v1.docx` using `references/edpb-2026-population.md`. Official format recognized by all EU SAs.
+- **Custom 12-section format:** Populate `references/dpia-custom-template-v1.docx` using `references/dpia-custom-population.md`. Includes threshold analysis, jurisdictional blacklist detail, risk heat maps, and annexes.
+
+Ask the user which format they prefer.

@@ -1,54 +1,38 @@
-[![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
-[![Agent Skill](https://img.shields.io/badge/Agent_Skill-Open_Standard-orange)](https://agentskills.io)
+# DPIA Sentinel — Deployment Guide
 
-# DPIA Sentinel v1.0
+## Overview
 
-**GDPR Data Protection Impact Assessment Sentinel** — an [Agent Skill](https://agentskills.io) that provides expert-level Art. 35 assessment support.
-
-> **Note:** This is an [Agent Skill](https://agentskills.io) — not a standalone application. It runs inside any compatible AI agent, including Claude Code, Claude.ai, Cursor, VS Code, GitHub Copilot, Gemini CLI, OpenAI Codex, JetBrains Junie, and [many more](https://agentskills.io). The skill extends your agent's capabilities with specialized GDPR DPIA knowledge, methodology, and document generation.
-
-## Features
+GDPR Data Protection Impact Assessment Sentinel — a structured DPIA guidance skill for Claude that provides:
 
 - **Threshold assessment** against Art. 35(3) mandatory triggers and EDPB nine-criteria analysis
 - **Multi-jurisdictional blacklist/whitelist checks** across 7 EU Member States (DE, FR, IE, BE, NL, IT, PL)
-- **Systematic processing description** following Art. 35(7)(a) requirements
-- **Necessity and proportionality analysis** including LIA balancing tests
-- **5x5 risk assessment** from the data subject's perspective with color-coded heat maps
-- **Mitigation mapping** with pre/post scores and residual risk evaluation
-- **Art. 36 prior consultation** decision support
+- **EDPB 2026 DPIA Template support** — generate documents in the official harmonised EU format (Sections 0–6)
+- **Two-track risk model** — inherent-by-design risks (Track A) and operational risks (Track B) per EDPB methodology
+- **5×5 risk assessment** with modulating factors, from the data subject's perspective
+- **Implementation status tracking** for all measures (Planned / Partially Implemented / Implemented)
+- **Necessity and proportionality** as separate upstream assessment gates
+- **Asset inventory** for risk-relevant processing infrastructure
+- **Art. 36 prior consultation** decision support with four-outcome verdict
 - **AI dual-phase analysis** per EDPB Opinion 28/2024 (training vs. deployment)
-- **Audit-ready .docx document generation** (full DPIA report, threshold memo, executive summary, Art. 36 package)
-
-## Installation
-
-This is an [Agent Skill](https://agentskills.io) compatible with any tool that supports the open Agent Skills standard.
-
-### Claude Code
-
-```bash
-git clone https://github.com/oliverschmidtprietz/GDPR-DPIA-Sentinel.git
-cp -r GDPR-DPIA-Sentinel/ ~/.claude/skills/user/dpia-sentinel-oliver-schmidt-prietz/
-```
-
-The skill will auto-activate when you mention DPIA, DSFA, Art. 35, or describe high-risk processing scenarios.
-
-### Other Compatible Agents
-
-For Cursor, VS Code, Gemini CLI, OpenAI Codex, JetBrains Junie, and other tools supporting the Agent Skills standard, follow the skill installation instructions for your specific tool. The skill folder structure is portable — just point your agent to the cloned directory.
-
-See [agentskills.io](https://agentskills.io) for a full list of compatible tools and integration guides.
+- **Audit-ready .docx document generation** via template population (EDPB 2026 format, custom 12-section report, threshold memo, executive summary, Art. 36 package)
 
 ## File Structure
 
 ```
-GDPR-DPIA-Sentinel/
-├── SKILL.md                              # Main skill instructions
-├── LICENSE                               # AGPL-3.0
+dpia-skill/
+├── SKILL.md                              # Main skill instructions (deploy this)
+├── CHANGELOG.md                          # Version history
 └── references/
     ├── edpb-criteria.md                  # EDPB nine criteria + multi-jurisdictional framework
-    ├── scoring.md                        # 5x5 risk scoring methodology
-    ├── risk-catalog.md                   # Common DPIA risks by processing type
-    ├── templates.md                      # Document templates (full DPIA, threshold memo, etc.)
+    ├── edpb-2026-template.md             # EDPB 2026 DPIA template field-by-field spec
+    ├── edpb-2026-template-v1.docx        # Official EDPB template .docx (populatable)
+    ├── edpb-2026-population.md           # Table-by-table population guide for the template
+    ├── edpb-2026-explainer.md            # EDPB 2026 methodology reference
+    ├── dpia-custom-template-v1.docx      # Custom 12-section DPIA template .docx (populatable)
+    ├── dpia-custom-population.md         # Population guide for custom template
+    ├── scoring.md                        # 5×5 risk scoring + modulating factors + two tracks
+    ├── risk-catalog.md                   # Common DPIA risks by processing type (Track A+B)
+    ├── templates.md                      # Document templates (5 formats)
     ├── sources.md                        # Regulatory source references
     └── jurisdictions/
         ├── de-dsk.md                     # Germany — DSK blacklist
@@ -60,6 +44,22 @@ GDPR-DPIA-Sentinel/
         ├── pl-uodo.md                    # Poland — UODO blacklist
         └── whitelists.md                 # FR, CZ, ES, AT whitelist exemptions
 ```
+
+## Deployment
+
+### Claude.ai (User Skills)
+
+1. Go to **Settings → Profile → Custom Skills** (or equivalent)
+2. Upload the entire `dpia-skill/` folder structure
+3. The skill will auto-trigger when you mention DPIA, DSFA, Art. 35, or describe high-risk processing
+
+### Claude Code / Custom MCP Setup
+
+1. Copy the `dpia-skill/` folder to your skills directory:
+   ```bash
+   cp -r dpia-skill/ /path/to/your/skills/user/dpia-skill/
+   ```
+2. Ensure the skill is registered in your configuration
 
 ## Usage
 
@@ -86,17 +86,20 @@ The skill will activate and guide you through the assessment.
 |-------|-------------|
 | **Threshold** | Art. 35(3) triggers + nine-criteria analysis + national blacklist checks |
 | **Description** | Systematic processing description per Art. 35(7)(a) |
-| **Necessity** | Proportionality, data minimization, legal basis adequacy |
-| **Risk Assessment** | 5x5 matrix, data subject perspective, risk register + heat map |
-| **Mitigation** | Technical, organizational, and legal measures with residual scoring |
-| **Residual Risk** | Overall position: Acceptable / Conditions / Art. 36 Consultation |
-| **Documentation** | Audit-ready .docx generation |
+| **Asset Inventory** | Risk-relevant assets grouped by type (EDPB 2026, Section 1.3) |
+| **Necessity** | Effectiveness + least-intrusive test (upstream gate) |
+| **Proportionality** | Benefits vs. impact balancing (upstream gate) |
+| **Inherent Risks** | Track A (by-design) + Track B (operational), 5×5 matrix + modulating factors |
+| **Mitigation** | Technical, organizational, and legal measures with implementation status |
+| **Residual Risk** | Overall verdict: APPROVED / CONDITIONALLY APPROVED / CONSULT SA / REJECTED |
+| **Documentation** | Audit-ready .docx generation (EDPB 2026 or custom format) |
 
 ## Document Types
 
 | Template | Description |
 |----------|-------------|
-| Full DPIA Report | Complete Art. 35 assessment with 12 sections + annexes |
+| EDPB 2026 DPIA Report | Official harmonised format (Sections 0–6, recognized by all EU SAs) |
+| Full DPIA Report (custom) | Custom 12-section assessment with threshold analysis + annexes |
 | Threshold Justification Memo | 2-3 page document explaining why a DPIA is NOT required |
 | Executive Summary | 1-2 page board/leadership summary |
 | Art. 36 Consultation Package | Submission package for SA prior consultation |
@@ -107,6 +110,7 @@ The skill will activate and guide you through the assessment.
 |----------|-----------|
 | GDPR Article 35 | DPIA obligation |
 | GDPR Article 36 | Prior consultation |
+| EDPB DPIA Template v1.0 (March 2026) | Harmonised EU-wide DPIA structure |
 | EDPB Guidelines WP 248 rev.01 | DPIA methodology and nine criteria |
 | EDPB Opinion 28/2024 | DPIA for AI processing |
 | EDPB Guidelines 01/2025 | Pseudonymisation as risk reducer |
@@ -114,16 +118,12 @@ The skill will activate and guide you through the assessment.
 
 ## Version History
 
-| Version | Date | Changes |
-|---------|------|---------|
-| 1.0 | 2026-02-10 | Initial release: threshold assessment, multi-jurisdictional blacklist analysis, 5x5 risk scoring, EDPB AI opinion integration, 4 document templates, 7 jurisdiction files |
+See [CHANGELOG.md](CHANGELOG.md) for full version history.
 
 ## License & Disclaimer
-
-This project is licensed under the [GNU Affero General Public License v3.0](LICENSE).
 
 This skill provides structured guidance based on publicly available GDPR regulatory materials. It does not constitute legal advice. All DPIA decisions should involve your DPO (Art. 35(2)) and qualified legal counsel.
 
 ---
 
-*Created by Oliver Schmidt-Prietz — [OneZero Legal](https://onezerolegal.com)*
+*Created by Oliver Schmidt-Prietz — OneZero Legal*
