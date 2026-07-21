@@ -1,5 +1,17 @@
 # DPIA Sentinel — Changelog
 
+## [v1.10] — 2026-07-21
+
+Digital Omnibus instrument-citation correction + EDPB pseudonymisation-guidelines status correction. Legal-accuracy patch; no change to DPIA methodology, scoring or templates.
+
+- **`references/sources.md` — wrong instrument corrected.** The Digital Omnibus proposal was cited as *COM(2025) 833 final*. The Digital Omnibus package of 19 November 2025 is **COM(2025) 836** (Digital Omnibus on AI, 2025/0359(COD)), **COM(2025) 837** (Digital Omnibus Regulation — data, privacy and cybersecurity, 2025/0360(COD), carrying the GDPR amendments in **Article 3**) and **COM(2025) 838** (European Business Wallets). **No Commission proposal bears the number COM(2025) 833** — EUR-Lex has no `52025PC0833`. The watch-note now cites COM(2025) 837 final, procedure 2025/0360(COD), GDPR amendments at Article 3, with an instrument note and primary-source URL. The substance (Art. 35 not amended; Arts. 30 and 33 re-pivoted onto "high risk") is unchanged.
+- **`SKILL.md` Legal Precision Point 10 — draft status restored.** EDPB *Guidelines 01/2025 on Pseudonymisation* were described as "adopted 17 January 2025", which reads as final adoption. They are a **draft**: adopted for public consultation on 16 January 2025, consultation open 17 January – 14 March 2025, **no final version adopted as at July 2026**, and the topic remains on the EDPB Work Programme 2026–2027. The point now says so explicitly and instructs that the guidelines be cited as a draft, never as settled guidance. Verified 2026-07-21 against the EDPB public-consultation register.
+- Verified 2026-07-21 against EUR-Lex (CELEX 52025PC0837) and the European Parliament Legislative Train entry for the digital package; corroborated by `data-subject-rights/sources/verification-log.md` §4.1.
+
+**Status:** reviewed (carried from v1.9).
+
+---
+
 ## [v1.9] — 2026-05-31
 
 Regulatory-horizon note (no change to DPIA methodology).

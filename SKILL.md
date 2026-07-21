@@ -5,7 +5,7 @@ description: |
 metadata:
   author: Oliver Schmidt-Prietz
   license: AGPL-3.0
-  version: 1.9
+  version: 1.10
 ---
 
 # DPIA Sentinel
@@ -76,7 +76,7 @@ These are areas where Claude's training knowledge may be imprecise. Always apply
 
 9. **Art. 36 prior consultation is sequential to the DPIA, not part of it.** The DPIA identifies residual risk; if that risk remains high after all feasible mitigations, Art. 36 requires consulting the SA before processing begins. The SA has 8 weeks (extendable by 6).
 
-10. **Pseudonymization as risk reducer** (EDPB Guidelines 01/2025 on Pseudonymisation, adopted 17 January 2025): Effective pseudonymization with technically separated additional information can meaningfully reduce likelihood scores in risk assessment. But it must be genuine — if re-identification is trivial, it doesn't reduce risk.
+10. **Pseudonymization as risk reducer** (EDPB Guidelines 01/2025 on Pseudonymisation — **draft**, adopted for public consultation 16 January 2025, consultation 17 January–14 March 2025; **no final version adopted as at July 2026**, and the topic remains on the EDPB Work Programme 2026–2027. Cite as a draft, never as settled guidance): Effective pseudonymization with technically separated additional information can meaningfully reduce likelihood scores in risk assessment. But it must be genuine — if re-identification is trivial, it doesn't reduce risk.
 
 11. **Risk assessment is from the data subject's perspective.** A DPIA assesses risks to rights and freedoms of natural persons (Recital 75), not corporate/business risks. Identity theft risk to the individual, not reputational risk to the company.
 
