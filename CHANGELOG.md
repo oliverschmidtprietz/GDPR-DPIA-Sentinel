@@ -12,6 +12,19 @@ Digital Omnibus instrument-citation correction + EDPB pseudonymisation-guideline
 
 ---
 
+## [v1.11] — 2026-07-25
+
+Routes Article 32 security-of-processing work to the `toms-art32` skill. Part of the coordinated **sibling-routing pass** (`ropa` v2.15, `dpia-sentinel` v1.11, `dpa-art28` v1.2, `breach-sentinel` v3.3, `tia` v1.3) that closes the toms-art32 portfolio-integration gate recorded as Finding 1 in `docs/projects/gdpr-skills-marathon/ROADMAP-2026-07-25.md`. Routing pointers only — no Article 32 methodology is duplicated into any sibling.
+
+- **Routing table:** new row routing the Art. 32 security measures behind a mitigation to `toms-art32`.
+- **Article 32 handoff block.** The DPIA records the measures *envisaged* under Art. 35(7)(d) and the residual risk after them; it does not own them. Appropriateness under Art. 32(1), ownership, implementation status, evidence and effectiveness testing are `toms-art32`'s.
+- **Residual-risk discipline.** An Art. 32 measure at status `planned` is not a mitigation in force and must not be imported into the residual-risk calculation as though it were live.
+- **Assessment Flow:** Art. 32 boundary note at the mitigations phase — name the measure and its intended risk effect here, grade the control there.
+
+**Status:** reviewed (carried from v1.10) — routing/documentation only; no change to threshold logic, scoring, jurisdiction files or template population.
+
+---
+
 ## [v1.9] — 2026-05-31
 
 Regulatory-horizon note (no change to DPIA methodology).

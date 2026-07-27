@@ -5,7 +5,7 @@ description: |
 metadata:
   author: Oliver Schmidt-Prietz
   license: AGPL-3.0
-  version: 1.10
+  version: 1.11
 ---
 
 # DPIA Sentinel
@@ -25,6 +25,9 @@ Determine what the user needs and load references accordingly:
 | Document generation (.docx) — custom format | `references/dpia-custom-population.md` + `references/templates.md` + docx skill | Populate custom template .docx (unpack → fill tables → repack) |
 | Document generation (.docx) — EDPB 2026 format | `references/edpb-2026-population.md` + `references/edpb-2026-template.md` + docx skill | Populate official EDPB template .docx (unpack → fill tables → repack) |
 | Specific legal question | Load relevant reference only | Answer directly |
+| Art. 32 security measures behind a mitigation | — (route out) | Hand off to the `toms-art32` skill (see **Article 32 handoff** below) |
+
+**Article 32 handoff (`toms-art32`):** the DPIA records, under Art. 35(7)(d), the measures *envisaged* to address the identified risks and the residual risk that remains after them. It does not own those measures. Whether a security measure is appropriate under Art. 32(1), who owns it, whether it is actually implemented or merely planned, what evidence exists, when it was last tested, and how it is expressed in a contractual TOM annex — all of that belongs to `toms-art32`. Route when the conversation moves from "which risk does this address, and what is left over" to "is this control good enough and is it real". Two rules follow from that split: (1) do not import an unimplemented measure into the residual-risk calculation as though it were live — an Art. 32 status of `planned` is not a mitigation in force; (2) do not reproduce a control catalogue or effectiveness-testing method here.
 
 **Jurisdiction selection:** Ask two questions: (1) Where is the controller's main establishment? (2) Where are the data subjects located? Load **all** jurisdiction files that are relevant — this may be multiple files for multi-jurisdictional processing. See `references/edpb-criteria.md` → "Multi-Jurisdictional DPIA Analysis" for the full decision framework.
 
@@ -53,6 +56,8 @@ This is the logical sequence, not a rigid script. Adapt to the user: if they pro
 **Two risk tracks** (per EDPB Template 2026): Track A identifies inherent-by-design risks (from processing working as intended). Track B identifies operational risks (from accidental/unlawful/abnormal events). Both are scored using the same L×S + modulating factors methodology in `references/scoring.md`.
 
 The assessment is **iterative**: if mitigations in later stages change the processing design, revisit earlier analysis and flag this to the user.
+
+**Mitigations phase — Art. 32 boundary.** Security mitigations are named and risk-linked here, then handed to `toms-art32` for the appropriateness test, implementation status, evidence and testing (see the Article 32 handoff in Routing). Record the measure and its intended risk effect; do not grade the control here.
 
 ## Legal Precision Points
 
