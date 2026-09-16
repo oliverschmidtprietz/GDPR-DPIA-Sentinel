@@ -811,10 +811,10 @@ body {
 
     <section class="hero">
         <div class="badges">
-            <div class="badge badge--live">LIVE · v1.11 STABLE</div>
-            <div class="badge">BUILD 2026.07.25</div>
+            <div class="badge badge--live">LIVE · v1.13 STABLE</div>
+            <div class="badge">BUILD 2026.09.15</div>
             <div class="badge badge--color">ART. 35</div>
-            <div class="badge">AGPL-3.0 · 8 EVAL CASES · 72 ASSERTIONS</div>
+            <div class="badge">AGPL-3.0 · 8 EVAL CASES · 71 ASSERTIONS</div>
         </div>
 
         <h1>IMPACT<br>ASSESSMENT<br><em>by</em> <span class="hl-accent">THRESHOLD</span><br>FIRST.</h1>
@@ -866,7 +866,7 @@ body {
         <div class="feature-card" style="background-color: #B0E0D4;">
             <div class="feature-number">06</div>
             <div class="feature-name">TEMPLATE GENERATION</div>
-            <div class="feature-desc">Audit-ready .docx via template population (unpack → fill → repack): official EDPB 2026 format or custom 12-section report.</div>
+            <div class="feature-desc">Audit-ready .docx via template population (unpack → fill → repack): EDPB 2026 format (adopted for public consultation — check for final version) or custom 12-section report.</div>
         </div>
     </div>
 
@@ -979,7 +979,7 @@ body {
     <div class="modes-grid">
         <div class="mode-card" style="background-color: #C8F0DC;">
             <div class="mode-name">EDPB 2026</div>
-            <div class="mode-desc">Populate the official EDPB DPIA Template v1.0 (Sections 0–6). Harmonised EU format recognised by all SAs.</div>
+            <div class="mode-desc">Populate the EDPB DPIA Template v1.0 (Sections 0–6). Harmonised EU format recognised by all SAs — adopted for public consultation; check for final version updates.</div>
         </div>
         <div class="mode-card" style="background-color: #FFE0A0;">
             <div class="mode-name">CUSTOM 12-SECTION</div>
@@ -1000,7 +1000,7 @@ body {
         <div class="tree-card">
             <pre>dpia-sentinel/
 ├── evals  <span class="comment"># Test cases + assertions</span>
-│   └── evals.json  <span class="comment"># 8 cases, 72 assertions</span>
+│   └── evals.json  <span class="comment"># 8 cases, 71 assertions</span>
 ├── references  <span class="comment"># Reference corpus</span>
 │   ├── jurisdictions
 │   │   ├── be-apd.md
@@ -1080,7 +1080,7 @@ body {
         </div>
         <div class="output-row">
             <div class="output-name">EDPB 2026 DPIA report (.docx)</div>
-            <div class="output-desc">Official harmonised EU template, Sections 0–6, recognised by all EU supervisory authorities.</div>
+            <div class="output-desc">Harmonised EU template, Sections 0–6, recognised by all EU supervisory authorities — adopted for public consultation; check for final version updates.</div>
         </div>
         <div class="output-row">
             <div class="output-name">Custom DPIA report (.docx)</div>
@@ -1108,7 +1108,7 @@ body {
                 <div class="stat-label">Test Cases</div>
             </div>
             <div class="stat-card">
-                <div class="stat-value">72</div>
+                <div class="stat-value">71</div>
                 <div class="stat-label">Assertions</div>
             </div>
             <div class="stat-card">
@@ -1150,7 +1150,7 @@ body {
             <div class="eval-row">
                 <div class="eval-id">07</div>
                 <div>We&#x27;re a German staffing agency (controller)</div>
-                <div class="eval-asserts">10 ASSERTS</div>
+                <div class="eval-asserts">9 ASSERTS</div>
             </div>
             <div class="eval-row">
                 <div class="eval-id">08</div>
@@ -1255,7 +1255,7 @@ body {
 <ul>
 <li><strong>Threshold assessment</strong> against Art. 35(3) mandatory triggers and EDPB nine-criteria analysis</li>
 <li><strong>Multi-jurisdictional blacklist/whitelist checks</strong> across 7 EU Member States (DE, FR, IE, BE, NL, IT, PL)</li>
-<li><strong>EDPB 2026 DPIA Template support</strong> — generate documents in the official harmonised EU format (Sections 0–6)</li>
+<li><strong>EDPB 2026 DPIA Template support</strong> — generate documents in the harmonised EU format (Sections 0–6) per the EDPB 2026 template (adopted for public consultation — check for final version)</li>
 <li><strong>Two-track risk model</strong> — inherent-by-design risks (Track A) and operational risks (Track B) per EDPB methodology</li>
 <li><strong>5×5 risk assessment</strong> with modulating factors, from the data subject's perspective</li>
 <li><strong>Implementation status tracking</strong> for all measures (Planned / Partially Implemented / Implemented)</li>
@@ -1272,11 +1272,12 @@ body {
 └── references/
     ├── edpb-criteria.md                  # EDPB nine criteria + multi-jurisdictional framework
     ├── edpb-2026-template.md             # EDPB 2026 DPIA template field-by-field spec
-    ├── edpb-2026-template-v1.docx        # Official EDPB template .docx (populatable)
+    ├── edpb-2026-template-v1.docx        # EDPB 2026 template .docx (populatable; adopted for public consultation — check for final version)
     ├── edpb-2026-population.md           # Table-by-table population guide for the template
     ├── edpb-2026-explainer.md            # EDPB 2026 methodology reference
     ├── dpia-custom-template-v1.docx      # Custom 12-section DPIA template .docx (populatable)
     ├── dpia-custom-population.md         # Population guide for custom template
+    ├── edpb-2026-custom-template-v1.docx # DRAFT hybrid variant (EDPB layout + custom 12-section structure) — no population guide yet, not routed from SKILL.md, not a supported output format
     ├── scoring.md                        # 5×5 risk scoring + modulating factors + two tracks
     ├── risk-catalog.md                   # Common DPIA risks by processing type (Track A+B)
     ├── templates.md                      # Document templates (5 formats)
@@ -1379,7 +1380,7 @@ Do we need a DPIA?"</p>
 <tbody>
 <tr>
 <td>EDPB 2026 DPIA Report</td>
-<td>Official harmonised format (Sections 0–6, recognized by all EU SAs)</td>
+<td>Harmonised format (Sections 0–6, recognized by all EU SAs) — adopted for public consultation; check for final version updates</td>
 </tr>
 <tr>
 <td>Full DPIA Report (custom)</td>
@@ -1448,7 +1449,7 @@ Do we need a DPIA?"</p>
     </section>
 
     <footer class="page-footer">
-        <span class="footer-text">onezero.legal · /SKILLS/DPIA.SENTINEL · v1.11</span>
+        <span class="footer-text">onezero.legal · /SKILLS/DPIA.SENTINEL · v1.13</span>
         <nav class="footer-links">
             <a href="https://onezero.legal">Portfolio</a>
             <a href="#features">Capabilities</a>

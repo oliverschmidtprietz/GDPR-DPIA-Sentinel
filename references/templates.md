@@ -159,7 +159,7 @@ Required when residual risk remains high after all feasible mitigations. Must co
 
 ## 5. EDPB 2026 DPIA Report
 
-DPIA report in the official EDPB harmonised template format (Sections 0–6). Unlike templates 1–4 which are generated from scratch, this format **populates the official EDPB template .docx file** to produce output in the exact format recognized by all EU supervisory authorities.
+DPIA report in the EDPB harmonised template format (Sections 0–6). Unlike templates 1–4 which are generated from scratch, this format **populates the EDPB template .docx file** to produce output in the format recognized by all EU supervisory authorities. Note: the template was adopted for public consultation — check for final version updates before treating it as definitive.
 
 ### Generation Workflow
 
@@ -185,8 +185,8 @@ See `references/edpb-2026-template.md` for the complete field-by-field specifica
 
 ### Formatting
 
-The official template's formatting (headers, footers, EDPB branding, table styles) is preserved by the population approach. Risk-level cell shading follows the same color scheme: Low=#E8F5E9, Medium=#FFF8E1, High=#FFF3E0, Very High=#FFEBEE. Implementation status badges: Planned=grey, Partially=yellow, Implemented=green.
+The EDPB 2026 template's formatting (headers, footers, EDPB branding, table styles) — adopted for public consultation; check for final version updates — is preserved by the population approach. Risk-level cell shading follows the same color scheme: Low=#E8F5E9, Medium=#FFF8E1, High=#FFF3E0, Very High=#FFEBEE. Implementation status badges: Planned=grey, Partially=yellow, Implemented=green.
 
 ### Relationship to Full DPIA Report (Template 1)
 
-The EDPB 2026 format and the custom 12-section format contain the same assessment data, structured differently. The EDPB format follows the official harmonised structure recognizable by all EU SAs. The custom format includes additional features (threshold assessment section, jurisdictional blacklist analysis, risk heat maps) not part of the EDPB template but useful for comprehensive documentation. Users choose the format at document generation time.
+The EDPB 2026 format and the custom 12-section format contain the same assessment data, structured differently. The EDPB format follows the harmonised structure recognizable by all EU SAs, per the EDPB 2026 template (adopted for public consultation — check for final version). The custom format includes additional features (threshold assessment section, jurisdictional blacklist analysis, risk heat maps) not part of the EDPB template but useful for comprehensive documentation. Users choose the format at document generation time.

@@ -1,14 +1,33 @@
 # DPIA Sentinel — Changelog
 
-## [v1.10] — 2026-07-21
+## [v1.13] — 2026-09-15
 
-Digital Omnibus instrument-citation correction + EDPB pseudonymisation-guidelines status correction. Legal-accuracy patch; no change to DPIA methodology, scoring or templates.
+Front-door check + enforced intake, fanned out from the GM-008 intake/front-door wave (design spec `docs/superpowers/specs/2026-08-29-gm008-intake-frontdoor-design.md`, decisions D-GM008-01..03), following the pattern proven in `tia` v1.5 and `dpa-art28`'s enforced-intake wording. Light fan-out, author-scoped 2026-08-29 — no journey test.
 
-- **`references/sources.md` — wrong instrument corrected.** The Digital Omnibus proposal was cited as *COM(2025) 833 final*. The Digital Omnibus package of 19 November 2025 is **COM(2025) 836** (Digital Omnibus on AI, 2025/0359(COD)), **COM(2025) 837** (Digital Omnibus Regulation — data, privacy and cybersecurity, 2025/0360(COD), carrying the GDPR amendments in **Article 3**) and **COM(2025) 838** (European Business Wallets). **No Commission proposal bears the number COM(2025) 833** — EUR-Lex has no `52025PC0833`. The watch-note now cites COM(2025) 837 final, procedure 2025/0360(COD), GDPR amendments at Article 3, with an instrument note and primary-source URL. The substance (Art. 35 not amended; Arts. 30 and 33 re-pivoted onto "high risk") is unchanged.
-- **`SKILL.md` Legal Precision Point 10 — draft status restored.** EDPB *Guidelines 01/2025 on Pseudonymisation* were described as "adopted 17 January 2025", which reads as final adoption. They are a **draft**: adopted for public consultation on 16 January 2025, consultation open 17 January – 14 March 2025, **no final version adopted as at July 2026**, and the topic remains on the EDPB Work Programme 2026–2027. The point now says so explicitly and instructs that the guidelines be cited as a draft, never as settled guidance. Verified 2026-07-21 against the EDPB public-consultation register.
-- Verified 2026-07-21 against EUR-Lex (CELEX 52025PC0837) and the European Parliament Legislative Train entry for the digital package; corroborated by `data-subject-rights/sources/verification-log.md` §4.1.
+- **New `## Session Setup` section**, inserted between Routing and Assessment Flow:
+  - **Front-door check** — a request carrying GDPR obligations beyond a DPIA (no single deliverable, spans several duties, or asks "are we compliant" / "what do we need to do") routes through `super-gdpr` first when installed; if not installed, the adjacent obligations (Art. 28 contract, transfer assessment, Art. 30 register entry, etc.) are named and the skill proceeds with a bounded DPIA-only answer. A crisp DPIA-only request stays direct-to-skill.
+  - **Required facts — ask, never assume.** An ALWAYS-gather fact set for the DPIA threshold and scope (processing description and purposes; data subjects and scale; data categories incl. the special-category screen; new-technology/systematic-monitoring/evaluation-scoring/automated-decision flags; recipients and processors; transfers; retention; existing DPIA or SA blacklist/whitelist match). Rich context upfront is extracted and confirmed back to the user, never silently skipped; a missing fact is asked before the threshold verdict; an unanswerable fact is recorded as an explicit open unknown and reasoned about conditionally.
+  - **Special-category free-text screen** — the author-ruled three-part question for free-text/unstructured inputs (which channels; is there an actual control, not just a policy; has special-category content been observed) folded into the data-categories fact, with the rule that an uncontrolled data-subject/staff-facing free-text channel is treated as potentially special-category for the Art. 35(3)(b) / WP248 criterion 4 assessment.
+  - **Provenance rule** — a fact is "user-confirmed" only if the user literally stated it; assistant-inferred facts are labelled *inferred*.
+- **`## Assessment Flow`** — removed the "if they provide rich context upfront, skip intake questions" escape hatch (the line journey run 1 fell through). The Required facts are now never skipped; rich context only changes ask-sequentially into extract-and-confirm.
+- **`evals/evals.json` and `references/`** — reviewed for text encoding the old skip-intake behaviour. No eval assertion rewarded skipping questions (all 8 prompts already supply rich context and are graded on substantive GDPR correctness, not on omitting a confirmation step), so no eval changes were required.
 
-**Status:** reviewed (carried from v1.9).
+**Status:** unreviewed — behavioural/intake change; substantive DPIA methodology, scoring, and jurisdiction analysis unchanged.
+
+---
+
+## [v1.12] — 2026-08-21
+
+Portfolio-audit fix release (source: `docs/projects/gdpr-skills-marathon/AUDIT-2026-08-19.md`). No change to DPIA methodology, scoring, or jurisdiction analysis.
+
+- **CF-01 — eval 4 graded the wrong AI Act pathway.** The clinical triage AI eval expected "Annex III (medical devices or health)"; AI Act Annex III has no medical-devices/health category. Clinical AI used for diagnosis/triage is high-risk via the Annex I product-safety pathway (Art. 6(1)) as a medical device under the MDR, not via Annex III. Corrected `expected_output` and assertion #7 in `evals/evals.json` (eval id 4) to require the Annex I/MDR pathway.
+- **CF-02 — eval 7 asserted an overbroad FRIA obligation.** The private-staffing-agency eval expected a mandatory Art. 27 AI Act FRIA for an Annex III Nr. 4 (employment) deployer. Art. 27 limits the mandatory FRIA to public-law bodies, private providers of public services, and Annex III 5(b)/(c) deployers — a private staffing agency qualifies for none of these. Corrected `expected_output` and the assertions in `evals/evals.json` (eval id 7) to require the DPIA, state the FRIA is NOT mandatory here, and reward explaining why (rewarding a voluntary-FRIA mention without asserting it's required).
+- **CF-13 — EDPB 2026 template called "official"/"recognized by all EU SAs" with no consultation caveat.** The template is still adopted for public consultation (per the skill's own Legal Precision Point 13), but the Output Formats instruction and several other surfaces stated recognition unconditionally. Added the same consultation caveat to `SKILL.md` Output Formats, `README.md`, `references/templates.md`, and `docs/portfolio/skill_pages/dpia-sentinel.py`.
+- **CF-20 — CHANGELOG entries were out of order.** v1.10 was listed above v1.11, hiding the actual current release. Reordered this file to strict descending version order.
+- **CF-22 — portfolio blurb understated jurisdiction coverage.** `docs/portfolio/generate.py`'s landing blurb listed only 4 of the skill's 7 covered jurisdictions (DE, FR, IE, BE) with no qualifier. Updated to list all 7 (DE, FR, IE, BE, NL, IT, PL) plus "and more."
+- **CF-23 — undocumented third .docx in `references/`.** `edpb-2026-custom-template-v1.docx` is a real, distinct hybrid draft (EDPB layout + custom 12-section structure) added 2026-05-06 as an intentionally unfinished variant, not a leftover duplicate — its content differs meaningfully from both shipped templates. Not deleted. Documented as an unrouted, unsupported draft in `SKILL.md` Output Formats and `README.md`'s file structure listing, so it can't be mistaken for a supported output.
+
+**Status:** reviewed (carried from v1.11) — audit-fix release; no change to threshold logic, scoring, jurisdiction files, or template population.
 
 ---
 
@@ -22,6 +41,18 @@ Routes Article 32 security-of-processing work to the `toms-art32` skill. Part of
 - **Assessment Flow:** Art. 32 boundary note at the mitigations phase — name the measure and its intended risk effect here, grade the control there.
 
 **Status:** reviewed (carried from v1.10) — routing/documentation only; no change to threshold logic, scoring, jurisdiction files or template population.
+
+---
+
+## [v1.10] — 2026-07-21
+
+Digital Omnibus instrument-citation correction + EDPB pseudonymisation-guidelines status correction. Legal-accuracy patch; no change to DPIA methodology, scoring or templates.
+
+- **`references/sources.md` — wrong instrument corrected.** The Digital Omnibus proposal was cited as *COM(2025) 833 final*. The Digital Omnibus package of 19 November 2025 is **COM(2025) 836** (Digital Omnibus on AI, 2025/0359(COD)), **COM(2025) 837** (Digital Omnibus Regulation — data, privacy and cybersecurity, 2025/0360(COD), carrying the GDPR amendments in **Article 3**) and **COM(2025) 838** (European Business Wallets). **No Commission proposal bears the number COM(2025) 833** — EUR-Lex has no `52025PC0833`. The watch-note now cites COM(2025) 837 final, procedure 2025/0360(COD), GDPR amendments at Article 3, with an instrument note and primary-source URL. The substance (Art. 35 not amended; Arts. 30 and 33 re-pivoted onto "high risk") is unchanged.
+- **`SKILL.md` Legal Precision Point 10 — draft status restored.** EDPB *Guidelines 01/2025 on Pseudonymisation* were described as "adopted 17 January 2025", which reads as final adoption. They are a **draft**: adopted for public consultation on 16 January 2025, consultation open 17 January – 14 March 2025, **no final version adopted as at July 2026**, and the topic remains on the EDPB Work Programme 2026–2027. The point now says so explicitly and instructs that the guidelines be cited as a draft, never as settled guidance. Verified 2026-07-21 against the EDPB public-consultation register.
+- Verified 2026-07-21 against EUR-Lex (CELEX 52025PC0837) and the European Parliament Legislative Train entry for the digital package; corroborated by `data-subject-rights/sources/verification-log.md` §4.1.
+
+**Status:** reviewed (carried from v1.9).
 
 ---
 

@@ -8,7 +8,7 @@ GDPR Data Protection Impact Assessment Sentinel — a structured DPIA guidance s
 
 - **Threshold assessment** against Art. 35(3) mandatory triggers and EDPB nine-criteria analysis
 - **Multi-jurisdictional blacklist/whitelist checks** across 7 EU Member States (DE, FR, IE, BE, NL, IT, PL)
-- **EDPB 2026 DPIA Template support** — generate documents in the official harmonised EU format (Sections 0–6)
+- **EDPB 2026 DPIA Template support** — generate documents in the harmonised EU format (Sections 0–6) per the EDPB 2026 template (adopted for public consultation — check for final version)
 - **Two-track risk model** — inherent-by-design risks (Track A) and operational risks (Track B) per EDPB methodology
 - **5×5 risk assessment** with modulating factors, from the data subject's perspective
 - **Implementation status tracking** for all measures (Planned / Partially Implemented / Implemented)
@@ -27,11 +27,12 @@ dpia-skill/
 └── references/
     ├── edpb-criteria.md                  # EDPB nine criteria + multi-jurisdictional framework
     ├── edpb-2026-template.md             # EDPB 2026 DPIA template field-by-field spec
-    ├── edpb-2026-template-v1.docx        # Official EDPB template .docx (populatable)
+    ├── edpb-2026-template-v1.docx        # EDPB 2026 template .docx (populatable; adopted for public consultation — check for final version)
     ├── edpb-2026-population.md           # Table-by-table population guide for the template
     ├── edpb-2026-explainer.md            # EDPB 2026 methodology reference
     ├── dpia-custom-template-v1.docx      # Custom 12-section DPIA template .docx (populatable)
     ├── dpia-custom-population.md         # Population guide for custom template
+    ├── edpb-2026-custom-template-v1.docx # DRAFT hybrid variant (EDPB layout + custom 12-section structure) — no population guide yet, not routed from SKILL.md, not a supported output format
     ├── scoring.md                        # 5×5 risk scoring + modulating factors + two tracks
     ├── risk-catalog.md                   # Common DPIA risks by processing type (Track A+B)
     ├── templates.md                      # Document templates (5 formats)
@@ -100,7 +101,7 @@ The skill will activate and guide you through the assessment.
 
 | Template | Description |
 |----------|-------------|
-| EDPB 2026 DPIA Report | Official harmonised format (Sections 0–6, recognized by all EU SAs) |
+| EDPB 2026 DPIA Report | Harmonised format (Sections 0–6, recognized by all EU SAs) — adopted for public consultation; check for final version updates |
 | Full DPIA Report (custom) | Custom 12-section assessment with threshold analysis + annexes |
 | Threshold Justification Memo | 2-3 page document explaining why a DPIA is NOT required |
 | Executive Summary | 1-2 page board/leadership summary |

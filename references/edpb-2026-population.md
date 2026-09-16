@@ -1,8 +1,8 @@
 # EDPB 2026 DPIA Template — Population Guide
 
-> For use with the official EDPB template at `references/edpb-2026-template-v1.docx`.
+> For use with the EDPB 2026 template at `references/edpb-2026-template-v1.docx` (adopted for public consultation — check for final version).
 
-This guide maps each table and placeholder in the official EDPB DPIA template to the assessment data that fills it. Use the OOXML editing workflow (unpack → manipulate → repack) from the docx editing skill.
+This guide maps each table and placeholder in the EDPB 2026 DPIA template to the assessment data that fills it. Use the OOXML editing workflow (unpack → manipulate → repack) from the docx editing skill.
 
 ---
 

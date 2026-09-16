@@ -56,7 +56,7 @@
     {
       "id": 4,
       "prompt": "We're a Berlin hospital, controller. We're deploying a third-party LLM-based clinical triage assistant — the vendor is US-based, the model was trained on US medical data. The vendor provided their DPIA covering training and is telling us 'the training DPIA is done, you don't need a separate one'. Is that right?",
-      "expected_output": "NO. The vendor's training DPIA is insufficient. Per EDPB Opinion 28/2024, training and deployment are distinct processing activities with distinct risk profiles — the deployer needs its own DPIA. Also triggers: cross-border transfer to US (Chapter V — SCCs / TIA / adequacy analysis), Art. 9 health data with cumulative Art. 6 + Art. 9 basis, likely AI Act high-risk (Annex III, health), and Art. 27 AI Act FRIA distinct from DPIA. Art. 36 prior consultation possible.",
+      "expected_output": "NO. The vendor's training DPIA is insufficient. Per EDPB Opinion 28/2024, training and deployment are distinct processing activities with distinct risk profiles — the deployer needs its own DPIA. Also triggers: cross-border transfer to US (Chapter V — SCCs / TIA / adequacy analysis), Art. 9 health data with cumulative Art. 6 + Art. 9 basis, likely AI Act high-risk via the Annex I product-safety pathway (Art. 6(1)) as a medical device under the MDR — not via Annex III — and Art. 27 AI Act FRIA distinct from DPIA. Art. 36 prior consultation possible.",
       "files": [],
       "expectations": [
         "States clearly that the vendor's training DPIA is INSUFFICIENT for the hospital's deployment",
@@ -65,7 +65,7 @@
         "Identifies cross-border transfer to the US as triggering Chapter V analysis (SCCs / TIA / adequacy)",
         "Identifies the data as Art. 9 health data and requires cumulative Art. 6 + Art. 9 basis analysis",
         "Notes the AI Act FRIA under Art. 27 may also be required — distinct from the DPIA, complementary",
-        "Identifies the system as likely high-risk under Annex III (medical devices or health) of the AI Act",
+        "Identifies the system as likely high-risk via the Annex I product-safety pathway (Art. 6(1)) as a medical device under the MDR, NOT via Annex III (which has no medical-devices/health category)",
         "Recommends Art. 36 prior consultation may be required if residual risk remains high",
         "Identifies BlnBDI (Berliner Beauftragte für Datenschutz) as the relevant SA for the Berlin controller"
       ]
@@ -106,17 +106,16 @@
     {
       "id": 7,
       "prompt": "We're a German staffing agency (controller). We want to use an AI tool that scores CVs and ranks job candidates. We've already classified the AI system as high-risk under Annex III Nr. 4 of the AI Act. Do we need a DPIA, a FRIA, or both?",
-      "expected_output": "BOTH are required. DPIA under Art. 35(3)(a) GDPR — systematic extensive automated evaluation with legal/significant effect. FRIA under Art. 27 AI Act because the deployer is using a high-risk system in employment/HR (Annex III Nr. 4). They are complementary, not substitutes — DPIA covers data-protection risks, FRIA covers broader fundamental-rights risks. Should also surface Art. 22 automated decision-making and labour-law overlays.",
+      "expected_output": "DPIA is mandatory: Art. 35(3)(a) GDPR — systematic extensive automated evaluation with legal/significant effect. FRIA under Art. 27 AI Act is NOT mandatory here — Art. 27 limits the mandatory FRIA to public-law bodies, private entities providing public services, and Annex III 5(b)/(c) deployers (creditworthiness / life-and-health-insurance risk assessment); a private, for-profit staffing agency deploying an Annex III Nr. 4 (employment) system does not fall into any of those three categories, so it is not legally required to run a FRIA (though it may choose to as good practice). Should also surface Art. 22 automated decision-making and labour-law overlays.",
       "files": [],
       "expectations": [
-        "States clearly that BOTH a DPIA and a FRIA are required — not one or the other",
+        "States clearly that the DPIA is mandatory but the FRIA is NOT mandatory for this deployer",
         "Identifies DPIA basis: Art. 35(3)(a) systematic extensive automated evaluation with legal/significant effect",
-        "Identifies FRIA basis: Art. 27 AI Act for deployers of high-risk systems",
-        "Confirms Annex III Nr. 4 (employment / worker management) places the system in scope of the FRIA obligation",
-        "Explicitly states DPIA covers data-protection risks; FRIA covers broader fundamental-rights risks",
-        "Explicitly states one does NOT replace the other — they are complementary",
+        "States Art. 27 FRIA is mandatory only for public-law bodies, private entities providing public services, and Annex III 5(b)/(c) deployers (creditworthiness / insurance risk-assessment)",
+        "Explains that Annex III Nr. 4 (employment) is not among the categories triggering a mandatory FRIA, and a private staffing agency is not a public-service provider merely by using a high-risk employment AI tool",
+        "Rewards noting the agency MAY still choose to run a FRIA voluntarily as good practice, without asserting it is legally required",
         "Triggers Art. 22 automated decision-making analysis (CV ranking has legal/significant effects)",
-        "Recommends running DPIA and FRIA in parallel with shared underlying assessment where feasible",
+        "If a voluntary FRIA is recommended, notes it can share an underlying assessment with the DPIA",
         "References EDPB Opinion 28/2024 on AI–DPIA interplay",
         "Notes the staffing-agency context likely triggers German labour-law overlays beyond GDPR/AI Act"
       ]

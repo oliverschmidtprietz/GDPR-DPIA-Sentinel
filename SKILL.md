@@ -5,7 +5,7 @@ description: |
 metadata:
   author: Oliver Schmidt-Prietz
   license: AGPL-3.0
-  version: 1.11
+  version: 1.13
 ---
 
 # DPIA Sentinel
@@ -23,7 +23,7 @@ Determine what the user needs and load references accordingly:
 | "Do I need a DPIA?" / threshold question | `references/edpb-criteria.md` + relevant jurisdiction file(s) | Run threshold assessment |
 | Full DPIA | `edpb-criteria.md` + jurisdiction(s) + `references/risk-catalog.md` + `scoring.md` | Walk through assessment phases |
 | Document generation (.docx) — custom format | `references/dpia-custom-population.md` + `references/templates.md` + docx skill | Populate custom template .docx (unpack → fill tables → repack) |
-| Document generation (.docx) — EDPB 2026 format | `references/edpb-2026-population.md` + `references/edpb-2026-template.md` + docx skill | Populate official EDPB template .docx (unpack → fill tables → repack) |
+| Document generation (.docx) — EDPB 2026 format | `references/edpb-2026-population.md` + `references/edpb-2026-template.md` + docx skill | Populate EDPB 2026 template .docx (unpack → fill tables → repack; adopted for public consultation — check for final version) |
 | Specific legal question | Load relevant reference only | Answer directly |
 | Art. 32 security measures behind a mitigation | — (route out) | Hand off to the `toms-art32` skill (see **Article 32 handoff** below) |
 
@@ -43,11 +43,34 @@ Available jurisdiction files:
 
 For jurisdictions not covered by a dedicated file, rely on the EDPB nine-criteria analysis in `references/edpb-criteria.md` and note that the user should check their national SA's Art. 35(4) list directly.
 
+## Session Setup
+
+**Front-door check (before session setup):** if the request carries GDPR obligations beyond a DPIA — it names no single deliverable, spans several duties (e.g. a new system or vendor also raises Art. 28 processor due diligence, a RoPA entry, or a transfer assessment), or asks "are we compliant" / "what do we need to do" — and the `super-gdpr` skill is installed, route the request through `super-gdpr` first and continue under its dispatch. If it is not installed, name the adjacent obligations you can see (e.g. Art. 28 contract, transfer assessment, Art. 30 register entry), then proceed within this skill's scope only with a bounded DPIA-only answer. A crisp DPIA-only request — a threshold question or a full DPIA for one described processing activity — stays direct-to-skill.
+
+### Required facts — ask, never assume
+
+A required fact you don't have is a **question, never an assumption**. Before any threshold verdict or full assessment, each of these Art. 35(3) / WP 248 rev.01 facts must be user-confirmed, verified with a receipt, or recorded as an open unknown:
+
+- processing description and purposes
+- data subjects and scale (number, category, geographic extent, duration — the four large-scale factors)
+- data categories, including the special-category free-text screen below
+- new-technology / systematic-monitoring / evaluation-scoring / automated-decision flags (the Art. 35(3) triggers and the EDPB nine criteria)
+- recipients and processors (who else touches the data)
+- international transfers (destination, if any)
+- retention period
+- whether a DPIA already exists for this processing, and whether it matches (or misses) a relevant national SA blacklist or whitelist entry
+
+If the user provides rich context upfront, **extract** the answers and **confirm** them back to the user rather than asking sequentially — but only for facts actually present in that context, and rich context never excuses skipping the facts above. Missing item → ask before the threshold verdict. The user can't answer → record an open unknown (`UNKNOWN — please supply` style) and carry it visibly into the output, reasoning conditionally on it. Never silently assume.
+
+**Special-category free-text screen** (part of "data categories," above): (1) Which free-text or unstructured inputs does the processing include (ticket bodies, chat, call notes, comments, uploads, recordings)? (2) Does any control actually prevent or catch special-category content in them (input filtering, redaction, a review step, trained staff with a check)? A policy alone is not a control. (3) Has special-category content (health, religious or philosophical belief, trade-union membership, sex life or orientation, racial or ethnic origin, political opinion, genetic or biometric data, criminal data) ever been observed in them in practice? Rule: if such channels accept input from data subjects or staff and no control catches sensitive content, treat them as potentially containing special-category data for the Art. 35(3)(b) / WP248 criterion 4 assessment, recording observed frequency.
+
+**Provenance rule:** a fact is *user-confirmed* only if the user literally stated it. A fact the assistant inferred from context — even a reasonable inference — is labelled *inferred*, never presented as user-confirmed.
+
 ## Assessment Flow
 
 **Threshold → Description → Asset Inventory → Necessity → Proportionality → Inherent Risks (Track A+B) → Mitigations → Residual Risk → Art. 36 Check → Documentation**
 
-This is the logical sequence, not a rigid script. Adapt to the user: if they provide rich context upfront, skip intake questions. If they're experienced, move faster. If they're new to DPIAs, explain more.
+This is the logical sequence, not a rigid script. Adapt to the user: if they're experienced, move faster through the walkthrough; if they're new to DPIAs, explain more. The Required facts in Session Setup are never skipped — rich context lets you extract and confirm rather than ask sequentially, but every fact is still confirmed, asked, or recorded as an open unknown before the threshold verdict.
 
 **Asset Inventory** (per EDPB Template 2026, Section 1.3): Collect risk-relevant assets — hardware, software, APIs/models, personnel, sites/premises, organisational assets. Group by logical module or technical layer. Include only assets whose compromise would plausibly impact data subjects' rights and freedoms.
 
@@ -98,7 +121,9 @@ These are areas where Claude's training knowledge may be imprecise. Always apply
 **Residual risk overview:** Summary showing total risks by level before and after additional mitigation, plus overall verdict (APPROVED / CONDITIONALLY APPROVED / CONSULT SA / REJECTED).
 
 **Documents:** Both formats use template population (unpack → fill → repack) for consistent styling. Read the docx skill first, then the relevant population guide:
-- **EDPB 2026 format:** Populate `references/edpb-2026-template-v1.docx` using `references/edpb-2026-population.md`. Official format recognized by all EU SAs.
+- **EDPB 2026 format:** Populate `references/edpb-2026-template-v1.docx` using `references/edpb-2026-population.md`. Harmonised format recognized by all EU SAs — but the template was adopted for public consultation; check for final version updates before treating it as definitive.
 - **Custom 12-section format:** Populate `references/dpia-custom-template-v1.docx` using `references/dpia-custom-population.md`. Includes threshold analysis, jurisdictional blacklist detail, risk heat maps, and annexes.
 
 Ask the user which format they prefer.
+
+**Not a supported output format:** `references/edpb-2026-custom-template-v1.docx` is an unfinished draft (a hybrid of the EDPB layout and the custom 12-section structure) with no population guide and no routing here — do not populate it.
