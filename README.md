@@ -24,6 +24,9 @@ GDPR Data Protection Impact Assessment Sentinel — a structured DPIA guidance s
 dpia-skill/
 ├── SKILL.md                              # Main skill instructions (deploy this)
 ├── CHANGELOG.md                          # Version history
+├── conformance.json                      # Portfolio standard conformance declaration (tier: structural)
+├── sources.lock.json                     # Source manifest (coverage + freshness) for the validator
+├── validator/                            # Structural validator for the native sidecar (validate.py, dpia_validator/, fixtures/)
 └── references/
     ├── edpb-criteria.md                  # EDPB nine criteria + multi-jurisdictional framework
     ├── edpb-2026-template.md             # EDPB 2026 DPIA template field-by-field spec
@@ -37,6 +40,7 @@ dpia-skill/
     ├── risk-catalog.md                   # Common DPIA risks by processing type (Track A+B)
     ├── templates.md                      # Document templates (5 formats)
     ├── sources.md                        # Regulatory source references
+    ├── dpia-sidecar-schema.json          # Native machine-readable sidecar schema (validator input)
     └── jurisdictions/
         ├── de-dsk.md                     # Germany — DSK blacklist
         ├── fr-cnil.md                    # France — CNIL blacklist

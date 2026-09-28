@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0",
+  "generated_by": "dpia-sentinel skill v<X.Y>",
+  "generated_at": "2026-09-15T00:00:00Z",
+  "processing_activity": {
+    "label": "Employee CCTV monitoring pilot",
+    "activity_slug": "employee-cctv-monitoring-pilot",
+    "controller_org": "Musterstadt Verwaltungs-GmbH"
+  },
+  "threshold": {
+    "mandatory_trigger": false,
+    "criteria_met_count": 1,
+    "criteria_met": ["systematic_monitoring"],
+    "blacklist_match": false,
+    "whitelist_match": false,
+    "dpia_required": "borderline",
+    "rationale": "Only 1 of 9 EDPB criteria met (systematic monitoring); no Art. 35(3) mandatory trigger; no blacklist match in DE. Recommended but not presumptively required per WP248 rev.01."
+  },
+  "jurisdictions_checked": ["DE"],
+  "risk_register": [
+    {
+      "id": "risk-unauthorised-access",
+      "track": "B",
+      "description": "Unauthorised access to CCTV footage by non-security staff.",
+      "likelihood": 2,
+      "severity": 3,
+      "score": 6,
+      "adjusted_level": "Medium",
+      "phase": "inherent"
+    }
+  ],
+  "mitigations": [
+    {
+      "id": "mit-access-control",
+      "description": "Role-based access control restricting CCTV footage access to the security team.",
+      "risk_refs": ["risk-unauthorised-access"],
+      "status": "toms_art32_tracked",
+      "toms_art32_ref": "dep-22222222-2222-2222-2222-222222222222"
+    },
+    {
+      "id": "mit-retention-limit",
+      "description": "30-day automatic deletion of footage.",
+      "risk_refs": ["risk-unauthorised-access"],
+      "status": "envisaged"
+    }
+  ],
+  "open_unknowns": [],
+  "verdict": "CONDITIONALLY_APPROVED"
+}

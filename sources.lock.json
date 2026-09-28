@@ -1,0 +1,158 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-09-24",
+  "files": {
+    "references/edpb-criteria.md": {
+      "source_type": "ai-drafted",
+      "jurisdiction": "EU",
+      "url": null,
+      "last_verified": "2026-03-09",
+      "confidence": "high",
+      "owner": "oliverschmidtprietz",
+      "notes": "Distills WP 248 rev.01 (adopted 4 April 2017, revised 4 October 2017) nine criteria, two-criteria rule, Annex 2, and the Art. 35(4)/(5) multi-jurisdictional decision framework. last_verified is the file's own last-modified date (git history) — no independent per-file re-check has been logged since."
+    },
+    "references/scoring.md": {
+      "source_type": "ai-drafted",
+      "jurisdiction": "EU",
+      "url": null,
+      "last_verified": "2026-04-19",
+      "confidence": "high",
+      "owner": "oliverschmidtprietz",
+      "notes": "5x5 L x S risk scoring, modulating factors, and the two-track (inherent-by-design / operational) model per the EDPB DPIA Template v1.0 (March 2026). last_verified is the file's own last-modified date."
+    },
+    "references/risk-catalog.md": {
+      "source_type": "ai-drafted",
+      "jurisdiction": "EU",
+      "url": null,
+      "last_verified": "2026-04-19",
+      "confidence": "medium",
+      "owner": "oliverschmidtprietz",
+      "notes": "Common DPIA risks by processing type, Track A/B labelled. last_verified is the file's own last-modified date."
+    },
+    "references/sources.md": {
+      "source_type": "ai-drafted",
+      "jurisdiction": "EU",
+      "url": null,
+      "last_verified": "2026-07-21",
+      "confidence": "medium",
+      "owner": "oliverschmidtprietz",
+      "notes": "Bibliography of stable citation anchors; several entries are self-flagged as not independently re-verified line-by-line. Most recent substantive edit corrected the Digital Omnibus instrument citation (COM(2025) 837, not 833)."
+    },
+    "references/templates.md": {
+      "source_type": "template",
+      "jurisdiction": "EU",
+      "url": null,
+      "last_verified": "2026-08-21",
+      "confidence": "high",
+      "owner": "oliverschmidtprietz",
+      "notes": "Document template specification (5 formats); last edit added the EDPB-template public-consultation caveat (v1.12/CF-13)."
+    },
+    "references/edpb-2026-template.md": {
+      "source_type": "template",
+      "jurisdiction": "EU",
+      "url": null,
+      "last_verified": "2026-04-19",
+      "confidence": "high",
+      "owner": "oliverschmidtprietz",
+      "notes": "Field-by-field spec for the EDPB DPIA Template v1.0 (adopted 10 March 2026 for public consultation — not yet final)."
+    },
+    "references/edpb-2026-explainer.md": {
+      "source_type": "ai-drafted",
+      "jurisdiction": "EU",
+      "url": null,
+      "last_verified": "2026-04-19",
+      "confidence": "high",
+      "owner": "oliverschmidtprietz",
+      "notes": "Distills the EDPB DPIA Template Explainer v1.0 (methodology-agnostic guidance accompanying the template)."
+    },
+    "references/edpb-2026-population.md": {
+      "source_type": "template",
+      "jurisdiction": "EU",
+      "url": null,
+      "last_verified": "2026-08-21",
+      "confidence": "high",
+      "owner": "oliverschmidtprietz",
+      "notes": "Table-by-table population guide for edpb-2026-template-v1.docx; last edit added the public-consultation caveat (v1.12/CF-13)."
+    },
+    "references/dpia-custom-population.md": {
+      "source_type": "template",
+      "jurisdiction": "EU",
+      "url": null,
+      "last_verified": "2026-04-21",
+      "confidence": "high",
+      "owner": "oliverschmidtprietz"
+    },
+    "references/jurisdictions/de-dsk.md": {
+      "source_type": "sa-guidance",
+      "jurisdiction": "DE",
+      "url": "https://www.datenschutzkonferenz-online.de/",
+      "last_verified": "2026-03-09",
+      "confidence": "high",
+      "owner": "oliverschmidtprietz",
+      "notes": "DSK Art. 35(4) blacklist. last_verified is the file's own last-modified date (git history); not independently re-verified against the live DSK listing since authoring."
+    },
+    "references/jurisdictions/fr-cnil.md": {
+      "source_type": "sa-guidance",
+      "jurisdiction": "FR",
+      "url": "https://www.cnil.fr/fr/guidelines-dpia",
+      "last_verified": "2026-03-09",
+      "confidence": "high",
+      "owner": "oliverschmidtprietz",
+      "notes": "CNIL Art. 35(4) blacklist. last_verified is the file's own last-modified date; not independently re-verified against the live CNIL listing since authoring."
+    },
+    "references/jurisdictions/ie-dpc.md": {
+      "source_type": "sa-guidance",
+      "jurisdiction": "IE",
+      "url": "https://www.dataprotection.ie/",
+      "last_verified": "2026-03-09",
+      "confidence": "high",
+      "owner": "oliverschmidtprietz",
+      "notes": "DPC Art. 35(4) blacklist. last_verified is the file's own last-modified date; not independently re-verified against the live DPC listing since authoring."
+    },
+    "references/jurisdictions/be-apd.md": {
+      "source_type": "sa-guidance",
+      "jurisdiction": "BE",
+      "url": "https://www.autoriteprotectiondonnees.be/",
+      "last_verified": "2026-03-09",
+      "confidence": "high",
+      "owner": "oliverschmidtprietz",
+      "notes": "APD/GBA Art. 35(4) blacklist. last_verified is the file's own last-modified date; not independently re-verified against the live APD listing since authoring."
+    },
+    "references/jurisdictions/nl-ap.md": {
+      "source_type": "sa-guidance",
+      "jurisdiction": "NL",
+      "url": "https://autoriteitpersoonsgegevens.nl/",
+      "last_verified": "2026-03-09",
+      "confidence": "high",
+      "owner": "oliverschmidtprietz",
+      "notes": "AP 'DPIA-lijst' Art. 35(4) blacklist. last_verified is the file's own last-modified date; not independently re-verified against the live AP listing since authoring."
+    },
+    "references/jurisdictions/it-garante.md": {
+      "source_type": "sa-guidance",
+      "jurisdiction": "IT",
+      "url": "https://www.garanteprivacy.it/",
+      "last_verified": "2026-03-09",
+      "confidence": "high",
+      "owner": "oliverschmidtprietz",
+      "notes": "Garante Delibera n. 467 (11 October 2018) Art. 35(4) blacklist. last_verified is the file's own last-modified date; not independently re-verified against the live Garante listing since authoring."
+    },
+    "references/jurisdictions/pl-uodo.md": {
+      "source_type": "sa-guidance",
+      "jurisdiction": "PL",
+      "url": "https://uodo.gov.pl/",
+      "last_verified": "2026-03-09",
+      "confidence": "high",
+      "owner": "oliverschmidtprietz",
+      "notes": "UODO Art. 35(4) blacklist. last_verified is the file's own last-modified date; not independently re-verified against the live UODO listing since authoring."
+    },
+    "references/jurisdictions/whitelists.md": {
+      "source_type": "sa-guidance",
+      "jurisdiction": "FR/CZ/ES/AT",
+      "url": "https://edpb.europa.eu/our-work-tools/consistency-findings/register-decisions_en",
+      "last_verified": "2026-03-09",
+      "confidence": "high",
+      "owner": "oliverschmidtprietz",
+      "notes": "Art. 35(5) whitelist exemptions (FR via EDPB Opinion 7/2020, CZ via 11/2019, ES via 12/2019, AT via DPIA-EO). last_verified is the file's own last-modified date; not independently re-verified since authoring."
+    }
+  }
+}

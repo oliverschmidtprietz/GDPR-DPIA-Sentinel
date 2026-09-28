@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/oliverschmidtprietz/claude-skills/skills/dpia-sentinel/references/dpia-sidecar-schema.json",
+  "title": "dpia-sentinel native sidecar",
+  "description": "Machine-readable companion to a DPIA (Art. 35 GDPR): the threshold verdict, risk register, and named mitigations. Mirrors the skill's own deliverable shape (SKILL.md Assessment Flow) — it does not invent fields the skill doesn't already produce. Projected into the portfolio core artefact by dpia_validator.core_artefact.to_core_artefact.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["schema_version", "generated_by", "generated_at", "processing_activity", "threshold"],
+  "properties": {
+    "schema_version": {"type": "string", "enum": ["1.0"], "default": "1.0"},
+    "generated_by": {"type": "string"},
+    "generated_at": {"type": "string", "format": "date-time"},
+    "processing_activity": {
+      "type": "object",
+      "required": ["label"],
+      "properties": {
+        "label": {"type": "string"},
+        "activity_slug": {"type": "string", "pattern": "^[a-z0-9-]+$"},
+        "controller_org": {"type": "string"}
+      }
+    },
+    "threshold": {
+      "type": "object",
+      "required": ["mandatory_trigger", "criteria_met_count", "dpia_required"],
+      "properties": {
+        "mandatory_trigger": {
+          "type": "boolean",
+          "description": "Art. 35(3) absolute trigger (SKILL.md Legal Precision Point 1) — no balancing if true."
+        },
+        "criteria_met_count": {"type": "integer", "minimum": 0, "maximum": 9},
+        "criteria_met": {
+          "type": "array",
+          "items": {
+            "enum": ["evaluation_scoring", "automated_decision", "systematic_monitoring",
+                     "sensitive_data", "large_scale", "dataset_matching",
+                     "vulnerable_subjects", "innovative_tech", "rights_restriction"]
+          }
+        },
+        "blacklist_match": {"type": "boolean"},
+        "whitelist_match": {"type": "boolean"},
+        "dpia_required": {"enum": ["yes", "no", "borderline"]},
+        "rationale": {"type": "string"}
+      }
+    },
+    "jurisdictions_checked": {
+      "type": "array",
+      "items": {"type": "string", "pattern": "^[A-Z]{2}$"}
+    },
+    "risk_register": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "track", "description", "likelihood", "severity"],
+        "properties": {
+          "id": {"type": "string"},
+          "track": {"enum": ["A", "B"]},
+          "description": {"type": "string"},
+          "likelihood": {"type": "integer", "minimum": 1, "maximum": 5},
+          "severity": {"type": "integer", "minimum": 1, "maximum": 5},
+          "score": {"type": "integer", "minimum": 1, "maximum": 25},
+          "adjusted_level": {"enum": ["Low", "Medium", "High", "Very High"]},
+          "phase": {"enum": ["inherent", "residual"]}
+        }
+      }
+    },
+    "mitigations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "description", "status"],
+        "properties": {
+          "id": {"type": "string"},
+          "description": {"type": "string"},
+          "risk_refs": {"type": "array", "items": {"type": "string"}},
+          "status": {
+            "enum": ["envisaged", "toms_art32_tracked"],
+            "description": "dpia-sentinel never certifies a mitigation's Art. 32 appropriateness, implementation, or effectiveness itself (SKILL.md 'Article 32 handoff'). 'envisaged' = named here per Art. 35(7)(d), no toms-art32 status attached yet. 'toms_art32_tracked' = handed off; toms_art32_ref must resolve to the deployment toms-art32 is tracking."
+          },
+          "toms_art32_ref": {"type": "string"}
+        }
+      }
+    },
+    "verdict": {"enum": ["APPROVED", "CONDITIONALLY_APPROVED", "CONSULT_SA", "REJECTED"]},
+    "open_unknowns": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "question", "blocking"],
+        "properties": {
+          "id": {"type": "string"},
+          "question": {"type": "string"},
+          "blocking": {"type": "boolean"}
+        }
+      }
+    },
+    "validation": {
+      "type": "object",
+      "properties": {
+        "status": {"enum": ["passed", "passed_with_warnings", "failed"]},
+        "findings": {"type": "array", "items": {"type": "object"}}
+      }
+    }
+  }
+}

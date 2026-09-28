@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "generated_by": "dpia-sentinel skill v<X.Y>",
+  "generated_at": "2026-09-15T00:00:00Z",
+  "processing_activity": {
+    "label": "Employee CCTV monitoring pilot"
+  },
+  "threshold": {
+    "mandatory_trigger": false,
+    "criteria_met_count": 1,
+    "dpia_required": "borderline"
+  },
+  "mitigations": [
+    {
+      "id": "mit-access-control",
+      "description": "Role-based access control restricting CCTV footage access to the security team.",
+      "status": "toms_art32_tracked"
+    }
+  ]
+}

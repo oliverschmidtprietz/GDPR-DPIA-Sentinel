@@ -5,7 +5,7 @@ description: |
 metadata:
   author: Oliver Schmidt-Prietz
   license: AGPL-3.0
-  version: 1.13
+  version: 1.14
 ---
 
 # DPIA Sentinel
@@ -127,3 +127,13 @@ These are areas where Claude's training knowledge may be imprecise. Always apply
 Ask the user which format they prefer.
 
 **Not a supported output format:** `references/edpb-2026-custom-template-v1.docx` is an unfinished draft (a hybrid of the EDPB layout and the custom 12-section structure) with no population guide and no routing here — do not populate it.
+
+## Machine-readable output
+
+Alongside the human DPIA document, write a native sidecar JSON file (shape: `references/dpia-sidecar-schema.json`) recording the threshold verdict, risk register, and named mitigations, then validate it:
+
+```
+uv run skills/dpia-sentinel/validator/validate.py <sidecar.json>
+```
+
+Add `--emit-core-artefact <path>` to also write the portfolio core-artefact projection (`skill-artefact-1.1` shape) for a consuming sibling skill. A mitigation named here with no `toms_art32_ref` attached (status `envisaged`) surfaces as an `unknowns[]` entry in that projection rather than a silent pass — this is the structural expression of the Article 32 handoff above: dpia-sentinel never certifies a mitigation's implementation or effectiveness itself. See `validator/README.md` if present, or `conformance.json` for the declared conformance tier (`structural`).

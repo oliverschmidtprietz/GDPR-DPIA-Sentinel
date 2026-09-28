@@ -811,8 +811,8 @@ body {
 
     <section class="hero">
         <div class="badges">
-            <div class="badge badge--live">LIVE · v1.13 STABLE</div>
-            <div class="badge">BUILD 2026.09.15</div>
+            <div class="badge badge--live">LIVE · v1.14 STABLE</div>
+            <div class="badge">BUILD 2026.09.24</div>
             <div class="badge badge--color">ART. 35</div>
             <div class="badge">AGPL-3.0 · 8 EVAL CASES · 71 ASSERTIONS</div>
         </div>
@@ -1013,6 +1013,7 @@ body {
 │   │   └── whitelists.md
 │   ├── dpia-custom-population.md
 │   ├── dpia-custom-template-v1.docx
+│   ├── dpia-sidecar-schema.json
 │   ├── edpb-2026-custom-template-v1.docx
 │   ├── edpb-2026-explainer.md
 │   ├── edpb-2026-population.md
@@ -1023,9 +1024,30 @@ body {
 │   ├── scoring.md
 │   ├── sources.md
 │   └── templates.md
+├── tests
+│   ├── test_cli_emit_core_artefact.py
+│   ├── test_core_artefact.py
+│   ├── test_runner.py
+│   ├── test_schema_selfvalid.py
+│   └── test_sources_lock.py
+├── validator
+│   ├── dpia_validator
+│   │   ├── rules
+│   │   ├── __init__.py
+│   │   ├── core_artefact.py
+│   │   ├── findings.py
+│   │   ├── registry.py
+│   │   └── runner.py
+│   ├── fixtures
+│   │   ├── must_fail
+│   │   └── must_pass
+│   ├── README.md  <span class="comment"># Deployment guide</span>
+│   └── validate.py
 ├── CHANGELOG.md  <span class="comment"># Version history</span>
 ├── README.md  <span class="comment"># Deployment guide</span>
-└── SKILL.md  <span class="comment"># Main skill instructions</span></pre>
+├── SKILL.md  <span class="comment"># Main skill instructions</span>
+├── conformance.json
+└── sources.lock.json</pre>
         </div>
     </div>
 
@@ -1269,6 +1291,9 @@ body {
 <pre><code>dpia-skill/
 ├── SKILL.md                              # Main skill instructions (deploy this)
 ├── CHANGELOG.md                          # Version history
+├── conformance.json                      # Portfolio standard conformance declaration (tier: structural)
+├── sources.lock.json                     # Source manifest (coverage + freshness) for the validator
+├── validator/                            # Structural validator for the native sidecar (validate.py, dpia_validator/, fixtures/)
 └── references/
     ├── edpb-criteria.md                  # EDPB nine criteria + multi-jurisdictional framework
     ├── edpb-2026-template.md             # EDPB 2026 DPIA template field-by-field spec
@@ -1282,6 +1307,7 @@ body {
     ├── risk-catalog.md                   # Common DPIA risks by processing type (Track A+B)
     ├── templates.md                      # Document templates (5 formats)
     ├── sources.md                        # Regulatory source references
+    ├── dpia-sidecar-schema.json          # Native machine-readable sidecar schema (validator input)
     └── jurisdictions/
         ├── de-dsk.md                     # Germany — DSK blacklist
         ├── fr-cnil.md                    # France — CNIL blacklist
@@ -1449,7 +1475,7 @@ Do we need a DPIA?"</p>
     </section>
 
     <footer class="page-footer">
-        <span class="footer-text">onezero.legal · /SKILLS/DPIA.SENTINEL · v1.13</span>
+        <span class="footer-text">onezero.legal · /SKILLS/DPIA.SENTINEL · v1.14</span>
         <nav class="footer-links">
             <a href="https://onezero.legal">Portfolio</a>
             <a href="#features">Capabilities</a>

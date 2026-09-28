@@ -1,5 +1,42 @@
 # DPIA Sentinel — Changelog
 
+## [v1.14] — 2026-09-24
+
+Portfolio standard adoption (structural tier): validator, sources.lock.json, core
+artefact adapter, conformance.json. No change to DPIA methodology or intake.
+
+- **New `references/dpia-sidecar-schema.json`** — the native machine-readable
+  sidecar shape (threshold verdict, risk register, mitigations), defined from
+  scratch per `docs/standards/PORTFOLIO-STANDARD.md` — this skill had no
+  structured output before this release.
+- **New `validator/`** — a deterministic structural validator
+  (`dpia_validator/`) with 6 rules: `SCHEMA-1` (schema conformance),
+  `COMPLETE-1` (a blocking open unknown stops the run), `CONSEQ-1` and
+  `THRESH-1` (consequential threshold contradictions — `dpia_required` vs. the
+  WP248 two-criteria rule and the Art. 35(3) absolute-trigger rule),
+  `MIT-1` (a mitigation claimed as `toms_art32_tracked` must carry a real ref
+  — dpia-sentinel never certifies Art. 32 status itself), and `SRC-1`
+  (`sources.lock.json` coverage and freshness), plus the `RUNNER-0`
+  empty-registry fail-closed guard. `--emit-core-artefact` projects the live
+  validation result into the portfolio core artefact
+  (`skill-artefact-1.1.schema.json`): `sources[]`, `handoffs[]` and
+  `unknowns[]` are all driven by the sidecar's actual content, never a
+  hard-coded empty list — a mitigation named with no toms-art32 status
+  attached surfaces as an `unknowns[]` entry rather than a silent pass.
+- **New `sources.lock.json`** — every `references/**/*.md` file declared,
+  with `last_verified` set to that file's own last-modified date (from git
+  history); no date invented.
+- **New `conformance.json`** — declares `tier: structural`,
+  `standard_version: "1.4"`. `scripts/check_conformance.py` reports
+  `CONFORMANT dpia-sentinel`.
+- **`SKILL.md`** — new "Machine-readable output" section pointing at the
+  sidecar + validator.
+
+**Status:** unreviewed — tooling/adoption change; substantive DPIA
+methodology, scoring, and jurisdiction analysis unchanged.
+
+---
+
 ## [v1.13] — 2026-09-15
 
 Front-door check + enforced intake, fanned out from the GM-008 intake/front-door wave (design spec `docs/superpowers/specs/2026-08-29-gm008-intake-frontdoor-design.md`, decisions D-GM008-01..03), following the pattern proven in `tia` v1.5 and `dpa-art28`'s enforced-intake wording. Light fan-out, author-scoped 2026-08-29 — no journey test.

@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0",
+  "generated_by": "dpia-sentinel skill v<X.Y>",
+  "generated_at": "2026-09-15T00:00:00Z",
+  "processing_activity": {
+    "label": "City-wide CCTV surveillance network"
+  },
+  "threshold": {
+    "mandatory_trigger": true,
+    "criteria_met_count": 3,
+    "dpia_required": "borderline",
+    "rationale": "Systematic monitoring of a publicly accessible area on a large scale — an absolute Art. 35(3)(c) trigger — incorrectly left at 'borderline'."
+  }
+}
