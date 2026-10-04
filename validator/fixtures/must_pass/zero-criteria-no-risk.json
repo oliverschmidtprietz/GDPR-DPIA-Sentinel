@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0",
+  "generated_by": "dpia-sentinel skill v<X.Y>",
+  "generated_at": "2026-09-15T00:00:00Z",
+  "processing_activity": {
+    "label": "Internal newsletter subscription management",
+    "activity_slug": "internal-newsletter-subscription",
+    "controller_org": "Acme GmbH"
+  },
+  "threshold": {
+    "mandatory_trigger": false,
+    "criteria_met_count": 0,
+    "criteria_met": [],
+    "blacklist_match": false,
+    "whitelist_match": false,
+    "dpia_required": "no",
+    "rationale": "Simple opt-in newsletter list; no special category data, no profiling, no large scale, zero EDPB criteria met."
+  },
+  "jurisdictions_checked": ["DE"],
+  "risk_register": [],
+  "mitigations": [],
+  "open_unknowns": [],
+  "verdict": "APPROVED"
+}

@@ -84,6 +84,29 @@ def mandatory_trigger_absolute(sidecar, ctx):
     return []
 
 
+@rule(id="THRESH-2", severity="rejection", category="threshold",
+      description="A national Art. 35(4) blacklist match is also absolute — "
+                  "dpia_required must be 'yes' when threshold.blacklist_match "
+                  "is true (SKILL.md Legal Precision Point 5: a blacklist "
+                  "match is a trigger in its own right, not merely additive "
+                  "to the nine-criteria analysis).",
+      spec_anchor=SPEC_THRESHOLD)
+def blacklist_match_absolute(sidecar, ctx):
+    threshold = _dict(sidecar.get("threshold"))
+    if threshold.get("blacklist_match") is True and threshold.get("dpia_required") != "yes":
+        return [Finding(
+            rule_id="THRESH-2", category="threshold", severity="rejection",
+            message="threshold.blacklist_match is true but dpia_required is "
+                    f"{threshold.get('dpia_required')!r}, not 'yes'. A "
+                    "national Art. 35(4) blacklist match requires a DPIA "
+                    "regardless of how many EDPB criteria are separately met "
+                    "or how the rationale frames it — no balancing, no "
+                    "judgment call (SKILL.md Legal Precision Point 5).",
+            spec_anchor=SPEC_THRESHOLD, field="threshold.dpia_required",
+        )]
+    return []
+
+
 @rule(id="MIT-1", severity="rejection", category="handoff",
       description="A mitigation claimed as toms_art32_tracked must carry a "
                   "toms_art32_ref — dpia-sentinel never certifies Art. 32 "

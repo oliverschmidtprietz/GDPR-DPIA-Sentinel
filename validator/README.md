@@ -30,13 +30,19 @@ uv run --with pytest --with jsonschema python -m pytest skills/dpia-sentinel/tes
 | COMPLETE-1 | rejection | completeness | A blocking `open_unknowns[]` entry stops the run — a required fact you don't have is a question, never an assumption (SKILL.md "Required facts") |
 | CONSEQ-1 | rejection | threshold | `threshold.dpia_required == "no"` contradicts `threshold.criteria_met_count >= 2` (WP248 rev.01's two-criteria rule creates a strong presumption a DPIA IS required) |
 | THRESH-1 | rejection | threshold | `threshold.mandatory_trigger == true` requires `dpia_required == "yes"` — an Art. 35(3) mandatory trigger is absolute (SKILL.md Legal Precision Point 1) |
+| THRESH-2 | rejection | threshold | `threshold.blacklist_match == true` requires `dpia_required == "yes"` — a national Art. 35(4) blacklist match is also absolute (SKILL.md Legal Precision Point 5) |
 | MIT-1 | rejection | handoff | A mitigation with `status == "toms_art32_tracked"` must carry a `toms_art32_ref` — dpia-sentinel never certifies Art. 32 appropriateness, implementation, or effectiveness itself |
+| MIT-2 | rejection | handoff | A mitigation's `risk_refs[]` must resolve to an existing `risk_register[].id` — a dangling reference claims to mitigate a risk this DPIA never registered |
+| RISK-1 | rejection | risk | A `risk_register[]` entry at `adjusted_level == "Very High"` (not `phase == "inherent"`) with no mitigation naming it in `risk_refs` requires `verdict` to be `CONSULT_SA` or `REJECTED` — never `APPROVED`/`CONDITIONALLY_APPROVED`, and never omitted (references/scoring.md DPIA Verdict + Art. 36) |
+| SCORE-1 | rejection | risk | A `risk_register[]` entry's `score` (if given) must equal `likelihood * severity`, and `adjusted_level` may diverge from the raw L×S tier by at most one tier (references/scoring.md Risk Level Matrix + Modulating Factors' documented ±1-tier bound) |
 | SRC-1 | warning | freshness | Every on-disk `references/**/*.md` file is declared in `sources.lock.json`, and every declared entry's `last_verified` is within the last 12 months |
 | RUNNER-0 | rejection | runner | Guard, not a data rule: `validate()` with an **empty rule registry** fails closed instead of returning a green result — import `dpia_validator.rules` before calling `validate()` |
+| CLI-0 | rejection | runner | CLI-only guard (lives in `validate.py` + `runner.load_error_result`, not in `RULES`): the sidecar file couldn't be read or parsed at all (missing, unreadable, invalid UTF-8, invalid JSON) — fails closed with one finding instead of a traceback |
 
 Rule modules: `schema_conformance.py` (SCHEMA-1), `completeness.py`
-(COMPLETE-1, CONSEQ-1, THRESH-1, MIT-1), `sources.py` (SRC-1); RUNNER-0 lives
-in `runner.py` itself.
+(COMPLETE-1, CONSEQ-1, THRESH-1, THRESH-2, MIT-1), `risk_register.py`
+(RISK-1, SCORE-1, MIT-2), `sources.py` (SRC-1); RUNNER-0 lives in
+`runner.py` itself, CLI-0 in `validate.py`/`runner.load_error_result`.
 
 ## Findings are the only output — rules never raise
 

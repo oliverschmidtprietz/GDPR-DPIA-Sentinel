@@ -1,5 +1,101 @@
 # DPIA Sentinel — Changelog
 
+## [v1.15] — 2026-10-02
+
+Break-it test 2026-10-02 fix wave (`scratchpad/breakit/dpia-sentinel/`, probes
+A1–A15; fixtures copied into `validator/fixtures/{must_fail,must_pass,
+must_not_crash}/`, never referencing the scratchpad path from committed
+code). Two classes of defect: the CLI crashed with a raw traceback on bad
+input, and five internally-contradictory sidecars passed validation that
+should not have. No change to DPIA methodology, scoring thresholds, or
+jurisdiction analysis beyond the Art. 3 gate and the UK-note correction
+below.
+
+- **CLI fail-closed (probes A9, A10, A11, plus a missing/unreadable file).**
+  `validate.py` previously let a missing file, an unreadable file, invalid
+  UTF-8, or invalid JSON propagate as a raw Python traceback, and crashed
+  with `TypeError: 'list' object is not a mapping` when `--emit-core-artefact`
+  was combined with a non-object top-level JSON value (array or `null`) — the
+  same class of defect as the sibling skills' `validate.py:62` finding. Added
+  `dpia_validator.runner.load_error_result()` and `validate.py`'s
+  `_read_sidecar()`: every one of these now fails closed with a single
+  `CLI-0` rejection finding, exit code 1, no traceback — and
+  `--emit-core-artefact` still writes a schema-valid `blocked` artefact
+  instead of crashing.
+- **New `THRESH-2`** — `threshold.blacklist_match: true` with
+  `dpia_required` anything but `"yes"` now fails. A national Art. 35(4)
+  blacklist match was previously not read by any rule at all (probe A1): a
+  sidecar could record a blacklist hit and still claim `dpia_required: "no"`
+  with a rationale explaining the hit away. SKILL.md Legal Precision Point 5
+  strengthened to state the match is absolute, mirroring Point 1's Art.
+  35(3) wording.
+- **New `RISK-1`** — a `risk_register[]` entry at `adjusted_level: "Very
+  High"` (at residual phase, or phase unstated) with no mitigation naming it
+  in `risk_refs` now requires `verdict` to be `CONSULT_SA` or `REJECTED`;
+  `APPROVED`/`CONDITIONALLY_APPROVED` or an entirely omitted `verdict` both
+  fail (probes A2, A5 — an unmitigated Very High residual risk previously
+  passed as `APPROVED`, and separately with no `verdict` field at all, with
+  the core artefact's `outcome.status` wrongly reading `"complete"`). A
+  mitigated Very High residual risk under `CONSULT_SA` still passes (probe
+  A15, now `must_pass/high-risk-mitigated-consult-sa.json`) — the rule only
+  fires on the unmitigated case, per references/scoring.md's differentiated
+  treatment of "High" (documented justification) vs. "Very High" (Art. 36
+  likely required); "High" is deliberately NOT included in this rule for the
+  same reason.
+- **New `SCORE-1`** — a risk entry's `score` (if given) must equal
+  `likelihood * severity`, and `adjusted_level` may diverge from the raw L×S
+  tier by at most the one-tier modulating-factor bound documented in
+  `references/scoring.md` (Risk Level Matrix + Modulating Factors). Probe A3
+  previously passed a `likelihood: 5, severity: 5` risk scored `1` and
+  labelled `"Low"` — three tiers off the raw `25` ("Very High") with no
+  modulating-factor justification possible at that distance.
+- **New `MIT-2`** — a mitigation's `risk_refs[]` must resolve to an
+  existing `risk_register[].id`. Probe A4 previously let a mitigation claim
+  to address a risk id that appeared nowhere in the register.
+- **Legal content:**
+  - **New Art. 3 territorial-scope gate** (`## Session Setup`, before the
+    front-door check): confirm the EU GDPR actually governs the processing
+    (Art. 3(1)-(3)) before running any threshold or assessment work; a
+    UK-only controller/data-subject scenario with no EU establishment,
+    offering, or monitoring is named as outside this skill's scope (UK GDPR
+    / ICO instead), not silently run through the EU analysis. Verified
+    against gdpr-info.eu/art-3-gdpr/ 2026-10-02 (mirrors EUR-Lex CELEX
+    02016R0679; three paragraphs confirmed verbatim).
+  - **`references/sources.md:81` UK entry corrected.** The Coverage note
+    miscounted "UK (pre-Brexit)" among the 22 EEA states with an EU Art.
+    35(4) blacklist; the UK left the EU 31 January 2020 and is not EEA. Added
+    a UK note clarifying the ICO's list operates under the UK's own,
+    currently-in-force **UK GDPR** domestic regime (not EU GDPR), is actively
+    maintained (not a frozen pre-Brexit artefact), and is included only for
+    comparison. Verified against ico.org.uk's "UK GDPR guidance and
+    resources" DPIA pages 2026-10-02.
+  - **Provenance rule clarified** (Session Setup): an instruction to
+    *assume* a fact ("just assume there's no special-category data") is not
+    the user stating that fact. Record it as an explicit assumption/open
+    unknown and still run the screen it would otherwise bypass (e.g. the
+    special-category free-text screen), rather than treating the instruction
+    as having answered it.
+  - **New contradiction check** (Session Setup): two conflicting
+    user-stated facts must be surfaced and resolved by asking, never
+    silently resolved by preferring one.
+  - **Validator-scope disclaimer added** (`## Machine-readable output` in
+    SKILL.md, and the README.md disclaimer paragraph): a validator pass
+    means the sidecar is internally consistent and complete, not that the
+    underlying legal analysis is correct.
+- Art. 35(3) and Art. 36(1)-(2) wording re-confirmed against
+  gdpr-info.eu/art-35-gdpr/ and /art-36-gdpr/ 2026-10-02 — no drift from the
+  existing SKILL.md Legal Precision Points 1 and 9.
+- **Not fixed (deferred, out of this wave's authorized scope):** adding
+  `"additionalProperties": false` to `dpia-sidecar-schema.json` (a ledger
+  "validator hole" item, but a root-level schema tightening with real risk of
+  rejecting legitimate larger artefacts that carry extra fields; not one of
+  the itemized consistency rules authorized for this release).
+
+**Status:** unreviewed — validator/legal-accuracy fix release; DPIA
+methodology, scoring matrix, and jurisdiction files otherwise unchanged.
+
+---
+
 ## [v1.14] — 2026-09-24
 
 Portfolio standard adoption (structural tier): validator, sources.lock.json, core

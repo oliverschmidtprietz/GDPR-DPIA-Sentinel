@@ -33,10 +33,10 @@
       "source_type": "ai-drafted",
       "jurisdiction": "EU",
       "url": null,
-      "last_verified": "2026-07-21",
+      "last_verified": "2026-10-02",
       "confidence": "medium",
       "owner": "oliverschmidtprietz",
-      "notes": "Bibliography of stable citation anchors; several entries are self-flagged as not independently re-verified line-by-line. Most recent substantive edit corrected the Digital Omnibus instrument citation (COM(2025) 837, not 833)."
+      "notes": "Bibliography of stable citation anchors; several entries are self-flagged as not independently re-verified line-by-line. break-it test 2026-10-02: corrected the Coverage note's 'UK (pre-Brexit)' entry, which miscounted the UK among the 22 EEA Art. 35(4) blacklist adopters — the UK is not EEA and has no EU Art. 35(4) list; added a UK note clarifying the ICO's list is current UK GDPR domestic law (comparative reference only), verified against ico.org.uk's 'UK GDPR guidance and resources' DPIA pages. Art. 3, Art. 35(3), and Art. 36(1)-(2) wording cross-checked against gdpr-info.eu (gdpr-info.eu/art-3-gdpr/, /art-35-gdpr/, /art-36-gdpr/) 2026-10-02; no drift found from this file's existing citations."
     },
     "references/templates.md": {
       "source_type": "template",

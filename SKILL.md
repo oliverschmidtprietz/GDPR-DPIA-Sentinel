@@ -5,7 +5,7 @@ description: |
 metadata:
   author: Oliver Schmidt-Prietz
   license: AGPL-3.0
-  version: 1.14
+  version: 1.15
 ---
 
 # DPIA Sentinel
@@ -45,6 +45,8 @@ For jurisdictions not covered by a dedicated file, rely on the EDPB nine-criteri
 
 ## Session Setup
 
+**Territorial-scope gate (Art. 3) — run this before anything else.** This skill applies EU GDPR. Before any threshold or assessment work, confirm the EU GDPR actually governs the processing: (1) Is the controller or processor established in the EU/EEA (Art. 3(1))? (2) If not, does the processing target data subjects in the EU/EEA by offering them goods or services, or by monitoring their behaviour as far as it takes place in the EU/EEA (Art. 3(2))? (3) Does Art. 3(3) apply (a place where Member State law applies by virtue of public international law)? If none apply — e.g. a UK-only controller processing UK data subjects with no EU establishment, offering, or monitoring — the EU GDPR does not govern this processing. Say so plainly, name the **UK GDPR** and the **ICO** as the applicable regime instead, and stop there: this skill's jurisdiction files and national blacklist/whitelist analysis are EU Art. 35(4)/(5) instruments and do not map onto the UK's separate (structurally similar but legally distinct) domestic DPIA regime. Don't run the EU threshold analysis against UK-only facts just because the frameworks look alike.
+
 **Front-door check (before session setup):** if the request carries GDPR obligations beyond a DPIA — it names no single deliverable, spans several duties (e.g. a new system or vendor also raises Art. 28 processor due diligence, a RoPA entry, or a transfer assessment), or asks "are we compliant" / "what do we need to do" — and the `super-gdpr` skill is installed, route the request through `super-gdpr` first and continue under its dispatch. If it is not installed, name the adjacent obligations you can see (e.g. Art. 28 contract, transfer assessment, Art. 30 register entry), then proceed within this skill's scope only with a bounded DPIA-only answer. A crisp DPIA-only request — a threshold question or a full DPIA for one described processing activity — stays direct-to-skill.
 
 ### Required facts — ask, never assume
@@ -64,7 +66,9 @@ If the user provides rich context upfront, **extract** the answers and **confirm
 
 **Special-category free-text screen** (part of "data categories," above): (1) Which free-text or unstructured inputs does the processing include (ticket bodies, chat, call notes, comments, uploads, recordings)? (2) Does any control actually prevent or catch special-category content in them (input filtering, redaction, a review step, trained staff with a check)? A policy alone is not a control. (3) Has special-category content (health, religious or philosophical belief, trade-union membership, sex life or orientation, racial or ethnic origin, political opinion, genetic or biometric data, criminal data) ever been observed in them in practice? Rule: if such channels accept input from data subjects or staff and no control catches sensitive content, treat them as potentially containing special-category data for the Art. 35(3)(b) / WP248 criterion 4 assessment, recording observed frequency.
 
-**Provenance rule:** a fact is *user-confirmed* only if the user literally stated it. A fact the assistant inferred from context — even a reasonable inference — is labelled *inferred*, never presented as user-confirmed.
+**Provenance rule:** a fact is *user-confirmed* only if the user literally stated it. A fact the assistant inferred from context — even a reasonable inference — is labelled *inferred*, never presented as user-confirmed. An instruction to **assume** a fact ("just assume there's no special-category data", "assume that's fine") is not the user stating that fact — it is the user asking the assistant to proceed on an unverified premise. Record it explicitly as an *assumption* (an open unknown: what was assumed, and that it was assumed rather than confirmed), and still run the required screen it would otherwise bypass — e.g. an instruction to assume no special-category data does not excuse running the special-category free-text screen above; it means the screen's outcome is recorded as an assumption, not skipped.
+
+**Contradiction check:** if the user states two facts that conflict (e.g., "no special-category data" earlier and "patients' medical notes" later), surface the contradiction explicitly and ask which is correct before using either one in the threshold verdict or scoring. Never silently prefer the more recent statement, the more convenient one, or average between them.
 
 ## Assessment Flow
 
@@ -94,7 +98,7 @@ These are areas where Claude's training knowledge may be imprecise. Always apply
 
 4. **"Large scale" has no fixed number.** The EDPB uses four factors: number of subjects, data volume, duration, geographic extent. An individual doctor is not large scale; a regional hospital is. Never cite a specific numerical threshold.
 
-5. **National blacklists are additive, not exhaustive.** Processing not on a blacklist may still require a DPIA. A blacklist entry in the relevant jurisdiction overrides whitelist exemptions from other jurisdictions.
+5. **National blacklists are additive, not exhaustive — and a match is itself absolute.** Processing not on a blacklist may still require a DPIA. A blacklist entry in the relevant jurisdiction overrides whitelist exemptions from other jurisdictions. And the converse holds with the same force as the Art. 35(3) triggers above: a confirmed match against a jurisdiction's Art. 35(4) blacklist means a DPIA is required — no balancing against the nine-criteria count, no judgment call to "no" or "borderline" on the strength of a low criteria count.
 
 6. **Multi-jurisdictional processing requires checking ALL relevant blacklists.** Art. 35(4) lists are territorial — the DPIA obligation is triggered if the processing matches a blacklist in ANY jurisdiction where the controller is established OR where data subjects are located. The one-stop-shop mechanism (Art. 56) governs enforcement jurisdiction, but it does NOT limit which Art. 35(4) lists apply to the DPIA obligation itself. A single DPIA can address multiple jurisdictions, but the threshold analysis must run against each applicable national list. See `references/edpb-criteria.md` → "Multi-Jurisdictional DPIA Analysis" for details.
 
@@ -137,3 +141,5 @@ uv run skills/dpia-sentinel/validator/validate.py <sidecar.json>
 ```
 
 Add `--emit-core-artefact <path>` to also write the portfolio core-artefact projection (`skill-artefact-1.1` shape) for a consuming sibling skill. A mitigation named here with no `toms_art32_ref` attached (status `envisaged`) surfaces as an `unknowns[]` entry in that projection rather than a silent pass — this is the structural expression of the Article 32 handoff above: dpia-sentinel never certifies a mitigation's implementation or effectiveness itself. See `validator/README.md` if present, or `conformance.json` for the declared conformance tier (`structural`).
+
+**What a validator pass means — and doesn't.** A `passed` or `passed_with_warnings` result means the sidecar is internally consistent and complete against the rules in `validator/README.md` (the threshold verdict, risk register, and mitigations don't contradict each other or the schema). It does **not** mean the underlying legal analysis — whether a DPIA is actually required, whether the risk scores are right, whether the verdict is the correct one — is correct. That judgment stays with the assessor, their DPO, and ultimately the SA; the validator cannot check it.

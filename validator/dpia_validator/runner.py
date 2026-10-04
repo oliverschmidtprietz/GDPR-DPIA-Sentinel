@@ -99,6 +99,31 @@ def validate(sidecar: dict, ctx: Context, rule_filter: Optional[set] = None) -> 
     )
 
 
+def load_error_result(ctx: Context, message: str) -> Result:
+    """Build a failed Result for a sidecar that could not even be read or
+    parsed — before any rule ever runs (missing file, unreadable file,
+    invalid UTF-8, invalid JSON). Mirrors the empty-registry (RUNNER-0)
+    early-return shape: a clean rejection finding instead of a raised
+    exception propagating out of the CLI as a traceback. 'Rules never raise,
+    findings are the only output' applies even to input that never reaches
+    validate()."""
+    finding = Finding(
+        rule_id="CLI-0", category="runner", severity="rejection",
+        message=message,
+        spec_anchor="validator/README.md",
+        fix_hint="Fix the input file (must exist, be readable, valid UTF-8, "
+                 "and valid JSON) and re-run.",
+    )
+    return Result(
+        status="failed",
+        summary={"rejections": 1, "warnings": 0, "info": 0, "rules_evaluated": 0},
+        findings=[finding],
+        mode=ctx.mode,
+        validated_at=datetime.now(timezone.utc)
+            .isoformat(timespec="seconds").replace("+00:00", "Z"),
+    )
+
+
 def to_findings_json(result: Result, *, skill_version: str) -> dict:
     """Serialize a Result into the portfolio findings-report 2.0 envelope."""
     return {

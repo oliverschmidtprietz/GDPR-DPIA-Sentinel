@@ -811,8 +811,8 @@ body {
 
     <section class="hero">
         <div class="badges">
-            <div class="badge badge--live">LIVE · v1.14 STABLE</div>
-            <div class="badge">BUILD 2026.09.24</div>
+            <div class="badge badge--live">LIVE · v1.15 STABLE</div>
+            <div class="badge">BUILD 2026.10.02</div>
             <div class="badge badge--color">ART. 35</div>
             <div class="badge">AGPL-3.0 · 8 EVAL CASES · 71 ASSERTIONS</div>
         </div>
@@ -1026,6 +1026,7 @@ body {
 │   └── templates.md
 ├── tests
 │   ├── test_cli_emit_core_artefact.py
+│   ├── test_cli_robustness.py
 │   ├── test_core_artefact.py
 │   ├── test_runner.py
 │   ├── test_schema_selfvalid.py
@@ -1040,6 +1041,7 @@ body {
 │   │   └── runner.py
 │   ├── fixtures
 │   │   ├── must_fail
+│   │   ├── must_not_crash
 │   │   └── must_pass
 │   ├── README.md  <span class="comment"># Deployment guide</span>
 │   └── validate.py
@@ -1468,14 +1470,14 @@ Do we need a DPIA?"</p>
 <h2>Version History</h2>
 <p>See <a href="CHANGELOG.md">CHANGELOG.md</a> for full version history.</p>
 <h2>License &amp; Disclaimer</h2>
-<p>This skill provides structured guidance based on publicly available GDPR regulatory materials. It does not constitute legal advice. All DPIA decisions should involve your DPO (Art. 35(2)) and qualified legal counsel.</p>
+<p>This skill provides structured guidance based on publicly available GDPR regulatory materials. It does not constitute legal advice. All DPIA decisions should involve your DPO (Art. 35(2)) and qualified legal counsel. A passing result from the included validator means the machine-readable sidecar is internally consistent and complete — not that the underlying legal analysis (whether a DPIA is required, the risk scores, the verdict) is correct.</p>
 <hr>
 <p><em>Created by Oliver Schmidt-Prietz — OneZero Legal</em></p></div>
         </div>
     </section>
 
     <footer class="page-footer">
-        <span class="footer-text">onezero.legal · /SKILLS/DPIA.SENTINEL · v1.14</span>
+        <span class="footer-text">onezero.legal · /SKILLS/DPIA.SENTINEL · v1.15</span>
         <nav class="footer-links">
             <a href="https://onezero.legal">Portfolio</a>
             <a href="#features">Capabilities</a>

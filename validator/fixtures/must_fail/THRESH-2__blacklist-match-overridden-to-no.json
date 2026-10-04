@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "generated_by": "dpia-sentinel skill v<X.Y>",
+  "generated_at": "2026-09-15T00:00:00Z",
+  "processing_activity": {"label": "Biometric access control rollout"},
+  "threshold": {
+    "mandatory_trigger": false,
+    "criteria_met_count": 1,
+    "blacklist_match": true,
+    "whitelist_match": false,
+    "dpia_required": "no",
+    "rationale": "Only 1 criterion met; blacklist flag believed not to apply to this sub-case."
+  },
+  "jurisdictions_checked": ["DE"]
+}

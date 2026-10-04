@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0",
+  "generated_by": "dpia-sentinel skill v<X.Y>",
+  "generated_at": "2026-09-15T00:00:00Z",
+  "processing_activity": {"label": "Predictive policing risk score"},
+  "threshold": {
+    "mandatory_trigger": false,
+    "criteria_met_count": 3,
+    "criteria_met": ["evaluation_scoring", "sensitive_data", "large_scale"],
+    "dpia_required": "yes",
+    "rationale": "Three EDPB criteria met."
+  },
+  "jurisdictions_checked": ["DE"],
+  "risk_register": [
+    {
+      "id": "risk-wrongful-flagging",
+      "track": "A",
+      "description": "Wrongful flagging of individuals as high-risk leading to discriminatory policing action.",
+      "likelihood": 5,
+      "severity": 5,
+      "score": 25,
+      "adjusted_level": "Very High",
+      "phase": "residual"
+    }
+  ],
+  "mitigations": [],
+  "open_unknowns": [],
+  "verdict": "APPROVED"
+}

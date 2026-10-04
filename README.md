@@ -129,7 +129,7 @@ See [CHANGELOG.md](CHANGELOG.md) for full version history.
 
 ## License & Disclaimer
 
-This skill provides structured guidance based on publicly available GDPR regulatory materials. It does not constitute legal advice. All DPIA decisions should involve your DPO (Art. 35(2)) and qualified legal counsel.
+This skill provides structured guidance based on publicly available GDPR regulatory materials. It does not constitute legal advice. All DPIA decisions should involve your DPO (Art. 35(2)) and qualified legal counsel. A passing result from the included validator means the machine-readable sidecar is internally consistent and complete — not that the underlying legal analysis (whether a DPIA is required, the risk scores, the verdict) is correct.
 
 ---
 

@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "generated_by": "dpia-sentinel skill v<X.Y>",
+  "generated_at": "2026-09-15T00:00:00Z",
+  "processing_activity": {"label": "Test"},
+  "threshold": {"mandatory_trigger": false, "criteria_met_count": 0, "dpia_required": "no"},
+  "mitigations": {"id": "mit-1", "description": "x", "status": "envisaged"}
+}

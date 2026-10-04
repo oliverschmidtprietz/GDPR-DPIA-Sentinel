@@ -78,7 +78,9 @@ EDPB Register of Decisions (consistency mechanism) indexes all Opinions and nati
 | 🇪🇸 Spain | AEPD | EDPB Opinion 12/2019 |
 | 🇦🇹 Austria | DSB | DPIA-EO (Datenschutz-Folgenabschätzung-Ausnahmenverordnung) |
 
-**Coverage note:** At least 22 EEA SAs have adopted Art. 35(4) blacklists including Austria, Belgium, Bulgaria, Czech Republic, Estonia, Finland, France, Germany, Greece, Hungary, Ireland, Italy, Latvia, Lithuania, Malta, Netherlands, Poland, Portugal, Romania, Slovakia, Sweden, UK (pre-Brexit), plus Norway (EEA). For jurisdictions without a dedicated file in this skill, check the national SA website or the EDPB Register of Decisions.
+**Coverage note:** At least 22 EEA SAs have adopted Art. 35(4) blacklists including Austria, Belgium, Bulgaria, Czech Republic, Estonia, Finland, France, Germany, Greece, Hungary, Ireland, Italy, Latvia, Lithuania, Malta, Netherlands, Poland, Portugal, Romania, Slovakia, Sweden, plus Norway (EEA). For jurisdictions without a dedicated file in this skill, check the national SA website or the EDPB Register of Decisions.
+
+**UK note (not EU-GDPR law):** the UK left the EU on 31 January 2020 and is not an EEA state; it has no EU Art. 35(4) blacklist and is not counted in the 22 above. The ICO's own high-risk-processing list (see the table above) operates under the UK's separate domestic **UK GDPR** regime, not the EU GDPR this skill covers, and is actively maintained as current UK law — it is not a frozen "pre-Brexit" EU-era artefact. It is included here only as a comparative reference. See SKILL.md's Art. 3 territorial-scope gate before treating any UK-only processing as covered by this skill.
 
 ## CNIL PIA Methodology Toolkit
 

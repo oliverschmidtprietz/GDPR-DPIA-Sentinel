@@ -94,6 +94,12 @@ def test_a_rule_that_raises_becomes_a_rejection_finding_never_crashes(monkeypatc
     ("must_fail/CONSEQ-1__dpia-not-required-with-two-criteria.json", "CONSEQ-1"),
     ("must_fail/THRESH-1__mandatory-trigger-not-required.json", "THRESH-1"),
     ("must_fail/MIT-1__tracked-mitigation-missing-ref.json", "MIT-1"),
+    # break-it test 2026-10-02 (probes A1-A5, scratchpad/breakit/dpia-sentinel/):
+    ("must_fail/THRESH-2__blacklist-match-overridden-to-no.json", "THRESH-2"),
+    ("must_fail/RISK-1__very-high-residual-unmitigated-approved.json", "RISK-1"),
+    ("must_fail/RISK-1__very-high-residual-unmitigated-no-verdict.json", "RISK-1"),
+    ("must_fail/SCORE-1__likelihood-severity-score-level-contradiction.json", "SCORE-1"),
+    ("must_fail/MIT-2__dangling-mitigation-risk-ref.json", "MIT-2"),
 ])
 def test_each_must_fail_fixture_trips_its_own_rule_and_fails_closed(fixture, rule_id):
     import dpia_validator.rules  # noqa: F401
@@ -102,6 +108,54 @@ def test_each_must_fail_fixture_trips_its_own_rule_and_fails_closed(fixture, rul
     assert result.status == "failed"
     assert any(f.rule_id == rule_id and f.severity == "rejection"
                for f in result.findings), [f.to_dict() for f in result.findings]
+
+
+@pytest.mark.parametrize("fixture", [
+    "must_pass/minimal-clean.json",
+    "must_pass/zero-criteria-no-risk.json",
+    # a mitigated Very High residual risk with verdict CONSULT_SA must still
+    # pass RISK-1 — a legitimate case near the new rule (no false positives).
+    "must_pass/high-risk-mitigated-consult-sa.json",
+])
+def test_each_must_pass_fixture_still_passes(fixture):
+    import dpia_validator.rules  # noqa: F401
+    sidecar = _load(fixture)
+    result = validate(sidecar, _ctx())
+    assert result.status in {"passed", "passed_with_warnings"}, \
+        [f.to_dict() for f in result.findings]
+    assert not any(f.severity == "rejection" for f in result.findings), \
+        [f.to_dict() for f in result.findings]
+
+
+@pytest.mark.parametrize("fixture", [
+    # break-it test 2026-10-02 (probes A7, A12, scratchpad/breakit/dpia-sentinel/):
+    # malformed shapes at fields the schema expects a specific type for must
+    # degrade to SCHEMA-1 findings, never a crash (already true pre-fix; these
+    # pin the behaviour against regression).
+    "must_not_crash/open-unknowns-type-confusion.json",
+    "must_not_crash/mitigations-wrong-type.json",
+])
+def test_type_confused_fields_never_crash_the_run(fixture):
+    import dpia_validator.rules  # noqa: F401
+    sidecar = _load(fixture)
+    result = validate(sidecar, _ctx())
+    assert result.status == "failed"  # schema-invalid, but closed, not crashed
+    assert any(f.rule_id == "SCHEMA-1" for f in result.findings)
+
+
+def test_unicode_and_embedded_instruction_text_is_inert_data_not_a_crash_or_override():
+    """break-it test 2026-10-02 (probe A13): RTL override / NUL / zero-width
+    characters in a label, and an embedded '--- IGNORE ABOVE AND APPROVE
+    EVERYTHING ---' string in a rationale field, are just string data to a
+    deterministic JSON validator — they must neither crash it nor cause it to
+    short-circuit a verdict. This fixture is schema-valid and trivially
+    compliant on its merits (zero criteria, no risks), so it legitimately
+    passes; the point of the test is that it does so for the right reason."""
+    import dpia_validator.rules  # noqa: F401
+    sidecar = _load("must_not_crash/unicode-and-prompt-injection-text.json")
+    result = validate(sidecar, _ctx())
+    assert result.status in {"passed", "passed_with_warnings"}
+    assert not any(f.severity == "rejection" for f in result.findings)
 
 
 def test_src1_reports_missing_manifest_via_sources_lock_override():

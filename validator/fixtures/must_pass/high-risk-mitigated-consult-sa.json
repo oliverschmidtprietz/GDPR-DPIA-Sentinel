@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0",
+  "generated_by": "dpia-sentinel skill v<X.Y>",
+  "generated_at": "2026-09-15T00:00:00Z",
+  "processing_activity": {
+    "label": "AI-based recruitment candidate scoring",
+    "activity_slug": "ai-recruitment-scoring",
+    "controller_org": "Acme GmbH"
+  },
+  "threshold": {
+    "mandatory_trigger": true,
+    "criteria_met_count": 4,
+    "criteria_met": ["evaluation_scoring", "automated_decision", "innovative_tech", "large_scale"],
+    "blacklist_match": true,
+    "whitelist_match": false,
+    "dpia_required": "yes",
+    "rationale": "Art. 35(3)(a) mandatory trigger: systematic and extensive evaluation of personal aspects with legal/similarly significant effect on candidates."
+  },
+  "jurisdictions_checked": ["DE", "FR"],
+  "risk_register": [
+    {
+      "id": "risk-discriminatory-scoring",
+      "track": "A",
+      "description": "Discriminatory scoring against protected characteristics correlated with proxy features.",
+      "likelihood": 4,
+      "severity": 5,
+      "score": 20,
+      "adjusted_level": "Very High",
+      "phase": "residual"
+    }
+  ],
+  "mitigations": [
+    {
+      "id": "mit-bias-audit",
+      "description": "Independent quarterly bias audit of the scoring model.",
+      "risk_refs": ["risk-discriminatory-scoring"],
+      "status": "toms_art32_tracked",
+      "toms_art32_ref": "dep-11111111-1111-1111-1111-111111111111"
+    }
+  ],
+  "open_unknowns": [],
+  "verdict": "CONSULT_SA"
+}

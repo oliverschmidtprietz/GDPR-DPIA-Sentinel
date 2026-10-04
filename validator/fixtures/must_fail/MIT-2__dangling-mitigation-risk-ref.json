@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "generated_by": "dpia-sentinel skill v<X.Y>",
+  "generated_at": "2026-09-15T00:00:00Z",
+  "processing_activity": {"label": "Customer support ticket free-text mining"},
+  "threshold": {
+    "mandatory_trigger": false,
+    "criteria_met_count": 1,
+    "dpia_required": "borderline"
+  },
+  "risk_register": [
+    {
+      "id": "risk-real-one",
+      "track": "A",
+      "description": "Re-identification risk.",
+      "likelihood": 2,
+      "severity": 2,
+      "adjusted_level": "Low"
+    }
+  ],
+  "mitigations": [
+    {
+      "id": "mit-phantom",
+      "description": "Encryption at rest addressing a risk that was never entered in the register.",
+      "risk_refs": ["risk-that-does-not-exist-anywhere"],
+      "status": "envisaged"
+    }
+  ],
+  "verdict": "APPROVED"
+}
